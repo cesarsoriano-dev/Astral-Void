@@ -1,38 +1,54 @@
-$theme        = Astral-Void
-$cursor_theme = system
-$cursor_size  = 24
+$HYDE_THEME = Astral-Void
+$GTK_THEME = Decay-Green
+$ICON_THEME = Tela-circle-dracula
+$CURSOR_THEME = Bibata-Modern-Ice
+$CURSOR_SIZE = 24
+$FONT = JetBrainsMono Nerd Font
+$FONT_SIZE = 11
+$DOCUMENT_FONT = JetBrainsMono Nerd Font
+$DOCUMENT_FONT_SIZE = 11
+$MONOSPACE_FONT = JetBrainsMono Nerd Font
+$MONOSPACE_FONT_SIZE = 11
 
-$c_magenta     = rgb(ff79c6)
-$c_cyan        = rgb(8be9fd)
-$c_amber       = rgb(ffb86c)
-$c_violet      = rgb(bd93f9)
-
-$c_magenta_a   = rgba(ff79c6ff)
-$c_cyan_a      = rgba(8be9fdff)
-$c_amber_a     = rgba(ffb86cff)
-$c_violet_a    = rgba(bd93f9ff)
-
-$c_void_deep   = rgba(0a0816f2)
-$c_void_base   = rgba(0a0816cc)
-$c_border_off  = rgba(bd93f92e)
-$c_shadow_glow = rgba(ff79c640)
-$c_shadow_void = rgba(000000bf)
+exec = gsettings set org.gnome.desktop.interface icon-theme '$ICON_THEME'
+exec = gsettings set org.gnome.desktop.interface gtk-theme '$GTK_THEME'
+exec = gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec = gsettings set org.gnome.desktop.interface cursor-theme '$CURSOR_THEME'
+exec = gsettings set org.gnome.desktop.interface cursor-size $CURSOR_SIZE
+exec = gsettings set org.gnome.desktop.interface font-name '$FONT $FONT_SIZE'
+exec = gsettings set org.gnome.desktop.interface document-font-name '$DOCUMENT_FONT $DOCUMENT_FONT_SIZE'
+exec = gsettings set org.gnome.desktop.interface monospace-font-name '$MONOSPACE_FONT $MONOSPACE_FONT_SIZE'
 
 general {
     gaps_in = 6
-    gaps_out = 14
+    gaps_out = 12
     border_size = 2
-    col.active_border = $c_magenta_a $c_violet_a $c_cyan_a $c_amber_a 45deg
-    col.inactive_border = $c_border_off
+    col.active_border = rgba(bd93f9ff) rgba(8be9fdff) rgba(ff79c6ff) rgba(ffb86cff) 45deg
+    col.inactive_border = rgba(0a0816aa) rgba(bd93f940) 45deg
     layout = dwindle
     resize_on_border = true
-    hover_icon_on_border = true
+}
+
+group {
+    col.border_active = rgba(bd93f9ff) rgba(8be9fdff) rgba(ff79c6ff) rgba(ffb86cff) 45deg
+    col.border_inactive = rgba(0a0816cc) rgba(bd93f940) 45deg
+    col.border_locked_active = rgba(ff79c6ff) rgba(ffb86cff) 45deg
+    col.border_locked_inactive = rgba(0a0816cc) rgba(ff79c640) 45deg
+
+    groupbar {
+        font_family = JetBrainsMono Nerd Font
+        font_size = 10
+        col.active = rgba(bd93f9cc)
+        col.inactive = rgba(0a0816cc)
+        col.locked_active = rgba(ff79c6cc)
+        col.locked_inactive = rgba(0a0816cc)
+    }
 }
 
 decoration {
-    rounding = 12
-    active_opacity = 0.88
-    inactive_opacity = 0.78
+    rounding = 16
+    active_opacity = 0.96
+    inactive_opacity = 0.88
     fullscreen_opacity = 1.0
 
     blur {
@@ -40,21 +56,23 @@ decoration {
         size = 8
         passes = 3
         new_optimizations = true
+        ignore_opacity = true
         xray = false
-        noise = 0.02
-        contrast = 0.95
-        brightness = 0.90
+        noise = 0.015
+        contrast = 1.1
+        brightness = 0.9
         vibrancy = 0.25
-        vibrancy_darkness = 0.20
+        vibrancy_darkness = 0.5
+        popups = true
     }
 
     shadow {
         enabled = true
         range = 24
-        render_power = 4
-        color = $c_shadow_glow
-        color_inactive = $c_shadow_void
-        offset = 0 6
+        render_power = 3
+        color = rgba(05040add)
+        color_inactive = rgba(05040a88)
+        offset = 0 4
     }
 }
 
@@ -75,18 +93,26 @@ animations {
 
 layerrule = blur, waybar
 layerrule = ignorezero, waybar
-layerrule = ignorealpha 0.5, waybar
+layerrule = ignorealpha 0.25, waybar
+
 layerrule = blur, rofi
 layerrule = ignorezero, rofi
+layerrule = ignorealpha 0.25, rofi
+
 layerrule = blur, notifications
 layerrule = ignorezero, notifications
-layerrule = blur, logout_dialog
-layerrule = blur, wlogout
+layerrule = ignorealpha 0.25, notifications
 
-windowrulev2 = opacity 0.80 0.70, class:^(kitty)$
+layerrule = blur, logout_dialog
+layerrule = ignorezero, logout_dialog
+layerrule = blur, wlogout
+layerrule = ignorezero, wlogout
+
+windowrulev2 = opacity 0.82 0.75, class:^(kitty)$
 windowrulev2 = blur, class:^(kitty)$
-windowrulev2 = opacity 0.92 0.82, class:^(Code|VSCodium)$
-windowrulev2 = blur, class:^(Code|VSCodium)$
-windowrulev2 = float, class:^(pavucontrol|blueman-manager|nm-connection-editor)$
-windowrulev2 = size 650 450, class:^(pavucontrol)$
-windowrulev2 = center, class:^(pavucontrol)$
+windowrulev2 = opacity 0.90 0.82, class:^(org.kde.dolphin|org.gnome.Nautilus|thunar)$
+windowrulev2 = opacity 0.92 0.85, class:^(code-oss|Code|VSCodium|codium)$
+windowrulev2 = opacity 0.88 0.80, class:^(Spotify|spotify|org.pulseaudio.pavucontrol|blueman-manager|nm-applet|nm-connection-editor)$
+windowrulev2 = float, class:^(org.pulseaudio.pavucontrol|blueman-manager|nm-connection-editor|org.kde.polkit-kde-authentication-agent-1)$
+windowrulev2 = size 850 550, class:^(org.pulseaudio.pavucontrol|blueman-manager)$
+windowrulev2 = center, class:^(org.pulseaudio.pavucontrol|blueman-manager|nm-connection-editor)$
