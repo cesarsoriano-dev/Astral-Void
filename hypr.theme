@@ -2,21 +2,21 @@ $theme        = Astral-Void
 $cursor_theme = system
 $cursor_size  = 24
 
-$c_magenta = rgb(ff79c6)
-$c_cyan = rgb(8be9fd)
-$c_amber = rgb(ffb86c)
-$c_violet = rgb(bd93f9)
+$c_magenta     = rgb(ff79c6)
+$c_cyan        = rgb(8be9fd)
+$c_amber       = rgb(ffb86c)
+$c_violet      = rgb(bd93f9)
 
-$c_magenta_a = rgba(ff79c6ff)
-$c_cyan_a = rgba(8be9fdff)
-$c_amber_a = rgba(ffb86cff)
-$c_violet_a = rgba(bd93f9ff)
+$c_magenta_a   = rgba(ff79c6ff)
+$c_cyan_a      = rgba(8be9fdff)
+$c_amber_a     = rgba(ffb86cff)
+$c_violet_a    = rgba(bd93f9ff)
 
-$c_void_deep = rgba(0a0816f2)
-$c_void_base = rgba(0a0816cc)
-$c_border_off = rgba(189, 147, 249, 0.18)
-$c_shadow_glow = rgba(255, 121, 198, 0.25)
-$c_shadow_void = rgba(0, 0, 0, 0.75)
+$c_void_deep   = rgba(0a0816f2)
+$c_void_base   = rgba(0a0816cc)
+$c_border_off  = rgba(bd93f92e)
+$c_shadow_glow = rgba(ff79c640)
+$c_shadow_void = rgba(000000bf)
 
 general {
     gaps_in = 6
@@ -30,8 +30,8 @@ general {
 }
 
 decoration {
-    rounding = 14
-    active_opacity = 0.92
+    rounding = 12
+    active_opacity = 0.88
     inactive_opacity = 0.78
     fullscreen_opacity = 1.0
 
@@ -41,12 +41,11 @@ decoration {
         passes = 3
         new_optimizations = true
         xray = false
-        ignore_opacity = true
         noise = 0.02
-        contrast = 1.15
-        brightness = 0.92
-        vibrancy = 0.35
-        vibrancy_darkness = 0.2
+        contrast = 0.95
+        brightness = 0.90
+        vibrancy = 0.25
+        vibrancy_darkness = 0.20
     }
 
     shadow {
@@ -76,6 +75,7 @@ animations {
 
 layerrule = blur, waybar
 layerrule = ignorezero, waybar
+layerrule = ignorealpha 0.5, waybar
 layerrule = blur, rofi
 layerrule = ignorezero, rofi
 layerrule = blur, notifications
@@ -83,6 +83,10 @@ layerrule = ignorezero, notifications
 layerrule = blur, logout_dialog
 layerrule = blur, wlogout
 
-windowrulev2 = opacity 0.88 0.76, class:^(kitty)$
+windowrulev2 = opacity 0.80 0.70, class:^(kitty)$
+windowrulev2 = blur, class:^(kitty)$
 windowrulev2 = opacity 0.92 0.82, class:^(Code|VSCodium)$
+windowrulev2 = blur, class:^(Code|VSCodium)$
 windowrulev2 = float, class:^(pavucontrol|blueman-manager|nm-connection-editor)$
+windowrulev2 = size 650 450, class:^(pavucontrol)$
+windowrulev2 = center, class:^(pavucontrol)$

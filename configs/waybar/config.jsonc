@@ -1,153 +1,92 @@
 {
-  "layer": "top",
-  "position": "top",
-  "margin-top": 8,
-  "margin-left": 14,
-  "margin-right": 14,
-  "spacing": 0,
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "height": 38,
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "margin-top": 8,
+    "margin-left": 14,
+    "margin-right": 14,
 
-  "modules-left": [
-    "custom/os_icon",
-    "hyprland/workspaces",
-    "hyprland/window"
-  ],
+    "modules-left": ["custom/arch", "hyprland/workspaces", "hyprland/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "memory", "cpu", "network", "custom/power"],
 
-  "modules-center": [
-    "clock",
-    "custom/weather"
-  ],
-
-  "modules-right": [
-    "mpris",
-    "cpu",
-    "memory",
-    "wireplumber",
-    "network",
-    "battery",
-    "custom/power"
-  ],
-
-  "custom/os_icon": {
-    "format": "󰣇",
-    "tooltip": false,
-    "on-click": "rofi -show drun"
-  },
-
-  "hyprland/workspaces": {
-    "disable-scroll": true,
-    "all-outputs": true,
-    "active-only": false,
-    "format": "{icon}",
-    "format-icons": {
-      "1": "󰊠",
-      "2": "󰊠",
-      "3": "󰊠",
-      "4": "󰊠",
-      "5": "󰊠",
-      "urgent": "󰀨",
-      "focused": "󰮯",
-      "default": "󰊠"
+    "custom/arch": {
+        "format": " 󰣇 ",
+        "tooltip": true,
+        "tooltip-format": "Astral Void Menu",
+        "on-click": "rofi -show drun"
     },
-    "persistent-workspaces": {
-      "*": 5
-    }
-  },
 
-  "hyprland/window": {
-    "format": "✧ {title}",
-    "max-length": 32,
-    "separate-outputs": true,
-    "rewrite": {
-      "(.*) — Mozilla Firefox": "Firefox",
-      "(.*) - Visual Studio Code": "Code",
-      "(.*) - Neovim": "Neovim",
-      "^$": "Astral Void"
-    }
-  },
-
-  "clock": {
-    "format": "󱑂 {:%H:%M}",
-    "format-alt": "󰃭 {:%A, %d %B %Y}",
-    "tooltip-format": "<tt><small>{calendar}</small></tt>",
-    "calendar": {
-      "mode": "month",
-      "mode-mon-col": 3,
-      "weeks-pos": "right",
-      "on-scroll": 1,
-      "format": {
-        "months": "<span color='#ff79c6'><b>{}</b></span>",
-        "days": "<span color='#f8f8f2'><b>{}</b></span>",
-        "weeks": "<span color='#8be9fd'><b>W{}</b></span>",
-        "weekdays": "<span color='#ffb86c'><b>{}</b></span>",
-        "today": "<span color='#bd93f9'><b><u>{}</u></b></span>"
-      }
-    }
-  },
-
-  "custom/weather": {
-    "format": "{}",
-    "interval": 1800,
-    "exec": "curl -s 'https://wttr.in/?format=1' || echo '󰖐 Cosmos'",
-    "tooltip": false
-  },
-
-  "mpris": {
-    "format": "{player_icon} {title}",
-    "format-paused": "{status_icon} <i>{title}</i>",
-    "player-icons": {
-      "default": "󰎆",
-      "spotify": "󰓇"
+    "hyprland/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "active-only": false,
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons": {
+            "1": "󰄯",
+            "2": "󰄯",
+            "3": "󰄯",
+            "4": "󰄯",
+            "5": "󰄯",
+            "active": "󰮯",
+            "default": "󰄯"
+        }
     },
-    "status-icons": {
-      "paused": "󰏤"
-    },
-    "max-length": 20
-  },
 
-  "cpu": {
-    "interval": 2,
-    "format": "󰍛 {usage}%",
-    "states": {
-      "warning": 70,
-      "critical": 90
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 30,
+        "separate-outputs": true
+    },
+
+    "clock": {
+        "format": "󰥔 {:%H:%M}",
+        "format-alt": "󰃭 {:%A, %d de %B de %Y}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "on-click": "mode"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 Muted",
+        "format-icons": {
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol || kitty -e pulsemixer",
+        "on-click-right": "pamixer -t"
+    },
+
+    "memory": {
+        "interval": 5,
+        "format": "󰍛 {used:0.1f}G",
+        "tooltip-format": "RAM: {percentage}%\nSwap: {swapUsed:0.1f}G",
+        "on-click": "kitty -e btop"
+    },
+
+    "cpu": {
+        "interval": 5,
+        "format": "󰻠 {usage}%",
+        "on-click": "kitty -e btop"
+    },
+
+    "network": {
+        "format-wifi": "󰤨 {essid}",
+        "format-ethernet": "󰈀 Wired",
+        "format-disconnected": "󰤭 Offline",
+        "tooltip-format": "IP: {ipaddr}\nVelocidad: {bandwidthDownBits}",
+        "on-click": "kitty -e nmtui"
+    },
+
+    "custom/power": {
+        "format": "󰐥",
+        "tooltip": true,
+        "tooltip-format": "Apagar / Reiniciar",
+        "on-click": "wlogout || hyprctl dispatch exit"
     }
-  },
-
-  "memory": {
-    "interval": 3,
-    "format": "󰘚 {percentage}%",
-    "tooltip-format": "Usado: {used:0.1f}GiB / {total:0.1f}GiB"
-  },
-
-  "wireplumber": {
-    "format": "{icon} {volume}%",
-    "format-muted": "󰝟",
-    "format-icons": ["󰕿", "󰖀", "󰕾"],
-    "on-click": "pavucontrol"
-  },
-
-  "network": {
-    "format-wifi": "󰤨",
-    "format-ethernet": "󰈀",
-    "format-disconnected": "󰤭",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-    "tooltip-format-ethernet": "{ifname}  {ipaddr}"
-  },
-
-  "battery": {
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "format": "{icon} {capacity}%",
-    "format-charging": "󰂄 {capacity}%",
-    "format-plugged": "󰚥 {capacity}%",
-    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-  },
-
-  "custom/power": {
-    "format": "⏻",
-    "tooltip": false,
-    "on-click": "wlogout"
-  }
 }

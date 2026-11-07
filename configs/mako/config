@@ -1,28 +1,64 @@
-font=JetBrainsMono Nerd Font 10
-width=340
-height=120
-margin=14
-padding=14
-border-size=2
-border-radius=14
-icons=1
-max-icon-size=48
-default-timeout=5000
-ignore-timeout=0
+# ==============================================================================
+#  ASTRAL VOID - Kitty Terminal Configuration
+# ==============================================================================
 
-background-color=#0a0816ee
-text-color=#f8f8f2ff
-border-color=#ff79c6ff
-progress-color=over #8be9fd88
+# --- Fuente ---
+font_family      JetBrainsMono Nerd Font
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+font_size        10.5
 
-[urgency=low]
-border-color=#8be9fdff
-default-timeout=3000
+# --- Transparencia Planetaria y Desenfoque ---
+background_opacity         0.72
+dynamic_background_opacity yes
+background_blur            20
+window_padding_width       14
+confirm_os_window_close    0
 
-[urgency=normal]
-border-color=#ff79c6ff
+# --- Paleta Espacio Profundo (Astral Void) ---
+foreground              #f8f8f2
+background              #0a0816
+selection_foreground    #0a0816
+selection_background    #bd93f9
 
-[urgency=high]
-border-color=#ff5555ff
-text-color=#ff5555ff
-default-timeout=0
+# Color del cursor
+cursor                  #8be9fd
+cursor_text_color       #0a0816
+
+# Bordes de ventana en Kitty
+active_border_color     #bd93f9
+inactive_border_color   #1e1a38
+
+# --- Colores ANSI Cósmicos ---
+# Negro (Espacio Profundo)
+color0 #141126
+color8 #44475a
+
+# Rojo (Supernova)
+color1 #ff5555
+color9 #ff6e6e
+
+# Verde (Nebulosa Esmeralda)
+color2  #50fa7b
+color10 #69ff94
+
+# Amarillo / Ámbar Estelar
+color3  #f1fa8c
+color11 #ffffa5
+
+# Azul / Violeta Pulsar
+color4  #bd93f9
+color12 #d6acff
+
+# Magenta (Vórtice Galáctico)
+color5  #ff79c6
+color13 #ff92df
+
+# Cian (Horizonte de Sucesos)
+color6  #8be9fd
+color14 #a4ffff
+
+# Blanco (Luz Estelar)
+color7  #f8f8f2
+color15 #ffffff
