@@ -2,91 +2,164 @@
     "layer": "top",
     "position": "top",
     "mod": "dock",
-    "height": 38,
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "margin-top": 8,
-    "margin-left": 14,
-    "margin-right": 14,
+    "height": 42,
+    "margin-top": 2,
+    "margin-left": 6,
+    "margin-right": 6,
 
-    "modules-left": ["custom/arch", "hyprland/workspaces", "hyprland/window"],
-    "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "memory", "cpu", "network", "custom/power"],
+    "modules-left": [
+        "custom/arch",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "custom/power"
+    ],
+
+    // ========================================================================
+    // MÓDULOS IZQUIERDA
+    // ========================================================================
 
     "custom/arch": {
-        "format": " 󰣇 ",
+        "format": "󰣇",
         "tooltip": true,
-        "tooltip-format": "Astral Void Menu",
-        "on-click": "rofi -show drun"
+        "tooltip-format": "Lanzador de Aplicaciones (Rofi)",
+        "on-click": "pkill rofi || rofi -show drun",
+        "on-click-right": "kitty"
     },
 
     "hyprland/workspaces": {
         "disable-scroll": false,
         "all-outputs": true,
-        "active-only": false,
-        "on-click": "activate",
+        "warp-on-scroll": false,
+        "on-scroll-up": "hyprctl dispatch workspace e-1",
+        "on-scroll-down": "hyprctl dispatch workspace e+1",
         "format": "{icon}",
         "format-icons": {
-            "1": "󰄯",
-            "2": "󰄯",
-            "3": "󰄯",
-            "4": "󰄯",
-            "5": "󰄯",
+            "1": "󰲠",
+            "2": "󰲢",
+            "3": "󰲤",
+            "4": "󰲦",
+            "5": "󰲨",
+            "urgent": "󰀨",
             "active": "󰮯",
-            "default": "󰄯"
+            "default": "󰊠"
+        },
+        "persistent-workspaces": {
+            "*": 5
         }
     },
 
     "hyprland/window": {
-        "format": "{title}",
-        "max-length": 30,
-        "separate-outputs": true
+        "format": "󰣆  {title}",
+        "max-length": 38,
+        "separate-outputs": true,
+        "rewrite": {
+            "󰣆  ": "🌌  Astral Void",
+            "󰣆  (.*) — Mozilla Firefox": "󰈹  $1",
+            "󰣆  (.*) - Visual Studio Code": "󰨞  $1",
+            "󰣆  kitty": "󰄛  Terminal"
+        }
     },
+
+    // ========================================================================
+    // MÓDULO CENTRAL
+    // ========================================================================
 
     "clock": {
-        "format": "󰥔 {:%H:%M}",
-        "format-alt": "󰃭 {:%A, %d de %B de %Y}",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "on-click": "mode"
+        "format": "󰥔  {:%H:%M  󰃭  %a %d %b}",
+        "format-alt": "󰥔  {:%H:%M:%S  󰃭  %Y-%m-%d}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#bd93f9'><b>{}</b></span>",
+                "days": "<span color='#f8f8f2'><b>{}</b></span>",
+                "weeks": "<span color='#8be9fd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffb86c'><b>{}</b></span>",
+                "today": "<span color='#ff79c6'><b><u>{}</u></b></span>"
+            }
+        }
     },
+
+    // ========================================================================
+    // MÓDULOS DERECHA
+    // ========================================================================
 
     "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰝟 Muted",
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "{icon} 󰂯 {volume}%",
+        "format-muted": "󰖁  Muted",
         "format-icons": {
-            "default": ["󰕿", "󰖀", "󰕾"]
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "󰏲",
+            "portable": "󰏲",
+            "car": "󰄋",
+            "default": [
+                "󰕿  ▁▁▁",
+                "󰖀  ▃▁▁",
+                "󰖀  ▃▅▁",
+                "󰕾  ▃▅▇"
+            ]
         },
         "scroll-step": 5,
-        "on-click": "pavucontrol || kitty -e pulsemixer",
-        "on-click-right": "pamixer -t"
-    },
-
-    "memory": {
-        "interval": 5,
-        "format": "󰍛 {used:0.1f}G",
-        "tooltip-format": "RAM: {percentage}%\nSwap: {swapUsed:0.1f}G",
-        "on-click": "kitty -e btop"
-    },
-
-    "cpu": {
-        "interval": 5,
-        "format": "󰻠 {usage}%",
-        "on-click": "kitty -e btop"
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "tooltip-format": "Dispositivo: {desc}\nVolumen: {volume}%"
     },
 
     "network": {
-        "format-wifi": "󰤨 {essid}",
-        "format-ethernet": "󰈀 Wired",
-        "format-disconnected": "󰤭 Offline",
-        "tooltip-format": "IP: {ipaddr}\nVelocidad: {bandwidthDownBits}",
+        "interval": 5,
+        "format-wifi": "󰤨  {essid} ({signalStrength}%)",
+        "format-ethernet": "󰈀  {ipaddr}/{cidr}",
+        "format-linked": "󰈀  {ifname} (Sin IP)",
+        "format-disconnected": "󰤭  Offline",
+        "tooltip-format": "Interfaz: {ifname}\nIP: {ipaddr}\nGateway: {gwaddr}\n󰕒 {bandwidthUpBytes}  󰇚 {bandwidthDownBytes}",
         "on-click": "kitty -e nmtui"
+    },
+
+    "cpu": {
+        "interval": 2,
+        "format": "󰻠  {usage}%",
+        "tooltip": true,
+        "states": {
+            "warning": 80,
+            "critical": 90
+        },
+        "on-click": "kitty -e btop"
+    },
+
+    "memory": {
+        "interval": 3,
+        "format": "󰍛  {percentage}%",
+        "tooltip-format": "RAM Usada: {used:0.1f}G / {total:0.1f}G\nSwap: {swapUsed:0.1f}G / {swapTotal:0.1f}G",
+        "states": {
+            "warning": 80,
+            "critical": 90
+        },
+        "on-click": "kitty -e btop"
     },
 
     "custom/power": {
         "format": "󰐥",
         "tooltip": true,
-        "tooltip-format": "Apagar / Reiniciar",
-        "on-click": "wlogout || hyprctl dispatch exit"
+        "tooltip-format": "Menú de Energía",
+        "on-click": "wlogout -b 5",
+        "on-click-right": "hyprlock"
     }
 }

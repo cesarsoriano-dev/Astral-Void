@@ -1,197 +1,278 @@
-@define-color space-abyss   rgba(10, 8, 22, 0.62);
-@define-color space-border  rgba(189, 147, 249, 0.28);
-@define-color plasma-pink   #ff79c6;
-@define-color solar-amber   #ffb86c;
-@define-color cosmic-cyan   #8be9fd;
-@define-color astral-violet #bd93f9;
-@define-color star-white    #f8f8f2;
-@define-color star-dim      #6272a4;
-@define-color alert-nova    #ff5555;
+/* ==========================================================================
+   Waybar GTK3 Theme: "Astral Void" (Cosmic Glassmorphism)
+   Compatible con Hyprland / HyDE Project
+   ========================================================================== */
+
+@define-color bg-glass-dark rgba(10, 8, 22, 0.65);
+@define-color bg-glass-light rgba(18, 14, 38, 0.75);
+@define-color bg-module rgba(26, 20, 52, 0.55);
+@define-color bg-module-hover rgba(40, 31, 77, 0.85);
+
+@define-color border-subtle rgba(189, 147, 249, 0.25);
+@define-color pulsar-violet #bd93f9;
+@define-color horizon-cyan #8be9fd;
+@define-color vortex-magenta #ff79c6;
+@define-color stellar-amber #ffb86c;
+@define-color supernova-red #ff5555;
+@define-color starlight-white #f8f8f2;
+@define-color text-muted rgba(248, 248, 242, 0.65);
 
 * {
-  font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 13px;
-  font-weight: 700;
-  border: none;
-  border-radius: 0;
-  min-height: 0;
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 0;
+    transition: all 0.25s cubic-bezier(0.1, 1, 0.1, 1);
 }
 
 window#waybar {
-  background: transparent;
+    background-color: transparent;
+    color: @starlight-white;
 }
 
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* ==========================================================================
+   Arquitectura de Islas Flotantes (Izquierda, Centro, Derecha)
+   ========================================================================== */
 
 .modules-left,
 .modules-center,
 .modules-right {
-  background: @space-abyss;
-  border: 1px solid @space-border;
-  border-radius: 18px;
-  padding: 3px 8px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45),
-              inset 0 1px 0 rgba(255, 255, 255, 0.12); /* Brillo especular superior */
+    background-image: linear-gradient(135deg, @bg-glass-dark, @bg-glass-light);
+    border: 1px solid @border-subtle;
+    border-radius: 16px;
+    padding: 4px 8px;
+    margin: 6px 10px 2px 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
 }
 
+/* ==========================================================================
+   Estilo Base de Módulos Internos y Tooltips
+   ========================================================================== */
 
-#custom-os_icon {
-  font-size: 17px;
-  color: @cosmic-cyan;
-  padding: 0 10px 0 4px;
-  margin-right: 4px;
-  text-shadow: 0 0 10px rgba(139, 233, 253, 0.6);
-  transition: all 0.3s ease;
+tooltip {
+    background-color: @bg-glass-light;
+    border: 1px solid @vortex-magenta;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-#custom-os_icon:hover {
-  color: @plasma-pink;
-  text-shadow: 0 0 14px rgba(255, 121, 198, 0.85);
+tooltip label {
+    color: @starlight-white;
+    padding: 6px;
+}
+
+#custom-arch,
+#window,
+#clock,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#custom-power {
+    background-color: @bg-module;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 4px 12px;
+    margin: 2px 3px;
+    color: @starlight-white;
+}
+
+/* Micro-interacciones Globales :hover y :active */
+#custom-arch:hover,
+#clock:hover,
+#pulseaudio:hover,
+#network:hover,
+#cpu:hover,
+#memory:hover {
+    background-color: @bg-module-hover;
+    border-color: @vortex-magenta;
+    box-shadow: 0 0 10px rgba(255, 121, 198, 0.35);
+}
+
+#custom-arch:active,
+#clock:active,
+#pulseaudio:active,
+#network:active,
+#custom-power:active {
+    background-color: rgba(189, 147, 249, 0.3);
+    border-color: @horizon-cyan;
+}
+
+/* ==========================================================================
+   ISLA IZQUIERDA: Inicio, Espacios de Trabajo y Ventana Activa
+   ========================================================================== */
+
+#custom-arch {
+    color: @horizon-cyan;
+    font-size: 17px;
+    padding: 4px 13px 4px 10px;
+    margin-left: 2px;
+    background-image: linear-gradient(135deg, rgba(139, 233, 253, 0.15), rgba(189, 147, 249, 0.15));
+    border: 1px solid rgba(139, 233, 253, 0.3);
+}
+
+#custom-arch:hover {
+    color: @starlight-white;
+    background-image: linear-gradient(135deg, @horizon-cyan, @pulsar-violet);
+    border-color: @starlight-white;
+    box-shadow: 0 0 14px rgba(139, 233, 253, 0.6);
 }
 
 #workspaces {
-  padding: 0 2px;
+    background-color: @bg-module;
+    border-radius: 12px;
+    padding: 2px 4px;
+    margin: 2px 3px;
+    border: 1px solid rgba(189, 147, 249, 0.15);
 }
 
 #workspaces button {
-  padding: 0 6px;
-  color: @star-dim;
-  border-radius: 12px;
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: 3px 10px;
+    margin: 2px;
+    border-radius: 9px;
+    color: @text-muted;
+    background-color: transparent;
+    border: 1px solid transparent;
 }
 
 #workspaces button:hover {
-  color: @star-white;
-  background: rgba(255, 255, 255, 0.08);
+    color: @starlight-white;
+    background-color: @bg-module-hover;
+    border-color: @vortex-magenta;
+    box-shadow: 0 0 8px rgba(255, 121, 198, 0.3);
 }
 
-/* Workspace Activo: efecto núcleo de plasma */
 #workspaces button.active {
-  color: #0a0816;
-  background: linear-gradient(135deg, @plasma-pink, @cosmic-cyan);
-  box-shadow: 0 0 12px rgba(255, 121, 198, 0.7);
-  padding: 0 10px;
+    color: #0a0816;
+    background-image: linear-gradient(90deg, @horizon-cyan 0%, @vortex-magenta 100%);
+    padding: 3px 16px;
+    font-weight: 800;
+    border-color: @starlight-white;
+    box-shadow: 0 0 12px rgba(139, 233, 253, 0.5);
 }
 
 #workspaces button.urgent {
-  color: @alert-nova;
-  animation: pulse-alert 1s infinite alternate;
+    color: #0a0816;
+    background-color: @stellar-amber;
+    border-color: @supernova-red;
+    box-shadow: 0 0 10px rgba(255, 184, 108, 0.7);
 }
 
 #window {
-  color: @star-dim;
-  padding: 0 8px;
-  font-style: italic;
-  font-weight: 500;
+    color: @text-muted;
+    font-weight: 500;
+    background-color: transparent;
+    border-color: transparent;
+    padding: 4px 10px;
 }
 
+window#waybar.empty #window {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+}
+
+/* ==========================================================================
+   ISLA CENTRAL: Reloj Astral
+   ========================================================================== */
 
 #clock {
-  color: @star-white;
-  padding: 0 8px;
-  letter-spacing: 0.5px;
+    color: @pulsar-violet;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 4px 16px;
+    background-image: linear-gradient(90deg, rgba(189, 147, 249, 0.12), rgba(255, 121, 198, 0.12));
+    border: 1px solid rgba(189, 147, 249, 0.35);
 }
 
-#custom-weather {
-  color: @solar-amber;
-  padding: 0 8px;
-  border-left: 1px solid rgba(255, 184, 108, 0.25);
-  margin-left: 4px;
+#clock:hover {
+    color: @horizon-cyan;
+    border-color: @vortex-magenta;
+    background-image: linear-gradient(90deg, rgba(139, 233, 253, 0.2), rgba(255, 121, 198, 0.2));
+    box-shadow: 0 0 14px rgba(255, 121, 198, 0.45);
 }
 
+/* ==========================================================================
+   ISLA DERECHA: Telemetría del Sistema y Energía
+   ========================================================================== */
 
-#mpris,
-#cpu,
-#memory,
-#wireplumber,
-#network,
-#battery,
-#custom-power {
-  padding: 0 8px;
-  margin: 2px 1px;
-  border-radius: 10px;
-  transition: all 0.2s ease;
+/* --- Pulseaudio --- */
+#pulseaudio {
+    color: @horizon-cyan;
 }
 
-#mpris {
-  color: @astral-violet;
-  background: rgba(189, 147, 249, 0.1);
-  margin-right: 4px;
+#pulseaudio.muted {
+    color: @vortex-magenta;
+    background-color: rgba(255, 121, 198, 0.15);
+    border-color: rgba(255, 121, 198, 0.4);
 }
 
-#cpu {
-  color: @solar-amber;
+#pulseaudio.muted:hover {
+    background-color: rgba(255, 85, 85, 0.25);
+    border-color: @supernova-red;
+    color: @supernova-red;
 }
 
-#cpu.warning {
-  color: #ffb86c;
-  background: rgba(255, 184, 108, 0.15);
+/* --- Network --- */
+#network.wifi {
+    color: @pulsar-violet;
 }
 
-#cpu.critical {
-  color: @alert-nova;
-  background: rgba(255, 85, 85, 0.2);
-}
-
-#memory {
-  color: @plasma-pink;
-}
-
-#wireplumber {
-  color: @cosmic-cyan;
-}
-
-#wireplumber.muted {
-  color: @star-dim;
-}
-
-#network {
-  color: #50fa7b;
+#network.ethernet {
+    color: @horizon-cyan;
 }
 
 #network.disconnected {
-  color: @alert-nova;
+    color: @stellar-amber;
+    background-color: rgba(255, 184, 108, 0.15);
+    border-color: rgba(255, 184, 108, 0.4);
 }
 
-#battery {
-  color: #50fa7b;
+/* --- CPU & Memory --- */
+#cpu {
+    color: @starlight-white;
 }
 
-#battery.charging {
-  color: @solar-amber;
+#memory {
+    color: @starlight-white;
 }
 
-#battery.warning:not(.charging) {
-  color: @solar-amber;
+#cpu.warning,
+#memory.warning {
+    color: @stellar-amber;
+    background-color: rgba(255, 184, 108, 0.15);
+    border-color: @stellar-amber;
+    box-shadow: 0 0 8px rgba(255, 184, 108, 0.3);
 }
 
-#battery.critical:not(.charging) {
-  color: @alert-nova;
-  animation: pulse-alert 1s infinite alternate;
+#cpu.critical,
+#memory.critical {
+    color: @starlight-white;
+    background-image: linear-gradient(135deg, rgba(255, 85, 85, 0.7), rgba(255, 121, 198, 0.7));
+    border-color: @supernova-red;
+    box-shadow: 0 0 12px rgba(255, 85, 85, 0.6);
 }
 
+/* --- Botón de Apagado (Supernova) --- */
 #custom-power {
-  color: @alert-nova;
-  padding: 0 10px;
-  margin-left: 4px;
-  border-radius: 12px;
-  background: rgba(255, 85, 85, 0.1);
-  border: 1px solid rgba(255, 85, 85, 0.25);
+    color: @vortex-magenta;
+    font-size: 15px;
+    padding: 4px 13px 4px 11px;
+    margin-right: 2px;
+    background-color: rgba(255, 121, 198, 0.12);
+    border: 1px solid rgba(255, 121, 198, 0.3);
 }
 
 #custom-power:hover {
-  color: #ffffff;
-  background: @alert-nova;
-  box-shadow: 0 0 14px rgba(255, 85, 85, 0.7);
-}
-
-
-@keyframes pulse-alert {
-  0% {
-    opacity: 0.6;
-    box-shadow: 0 0 4px rgba(255, 85, 85, 0.3);
-  }
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 14px rgba(255, 85, 85, 0.8);
-  }
+    color: @starlight-white;
+    background-image: linear-gradient(135deg, @supernova-red, @vortex-magenta);
+    border-color: @starlight-white;
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.75);
 }
