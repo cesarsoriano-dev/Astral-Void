@@ -1,0 +1,197 @@
+@define-color space-abyss   rgba(10, 8, 22, 0.62);
+@define-color space-border  rgba(189, 147, 249, 0.28);
+@define-color plasma-pink   #ff79c6;
+@define-color solar-amber   #ffb86c;
+@define-color cosmic-cyan   #8be9fd;
+@define-color astral-violet #bd93f9;
+@define-color star-white    #f8f8f2;
+@define-color star-dim      #6272a4;
+@define-color alert-nova    #ff5555;
+
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background: @space-abyss;
+  border: 1px solid @space-border;
+  border-radius: 18px;
+  padding: 3px 8px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45),
+              inset 0 1px 0 rgba(255, 255, 255, 0.12); /* Brillo especular superior */
+}
+
+
+#custom-os_icon {
+  font-size: 17px;
+  color: @cosmic-cyan;
+  padding: 0 10px 0 4px;
+  margin-right: 4px;
+  text-shadow: 0 0 10px rgba(139, 233, 253, 0.6);
+  transition: all 0.3s ease;
+}
+
+#custom-os_icon:hover {
+  color: @plasma-pink;
+  text-shadow: 0 0 14px rgba(255, 121, 198, 0.85);
+}
+
+#workspaces {
+  padding: 0 2px;
+}
+
+#workspaces button {
+  padding: 0 6px;
+  color: @star-dim;
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#workspaces button:hover {
+  color: @star-white;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Workspace Activo: efecto núcleo de plasma */
+#workspaces button.active {
+  color: #0a0816;
+  background: linear-gradient(135deg, @plasma-pink, @cosmic-cyan);
+  box-shadow: 0 0 12px rgba(255, 121, 198, 0.7);
+  padding: 0 10px;
+}
+
+#workspaces button.urgent {
+  color: @alert-nova;
+  animation: pulse-alert 1s infinite alternate;
+}
+
+#window {
+  color: @star-dim;
+  padding: 0 8px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+
+#clock {
+  color: @star-white;
+  padding: 0 8px;
+  letter-spacing: 0.5px;
+}
+
+#custom-weather {
+  color: @solar-amber;
+  padding: 0 8px;
+  border-left: 1px solid rgba(255, 184, 108, 0.25);
+  margin-left: 4px;
+}
+
+
+#mpris,
+#cpu,
+#memory,
+#wireplumber,
+#network,
+#battery,
+#custom-power {
+  padding: 0 8px;
+  margin: 2px 1px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+#mpris {
+  color: @astral-violet;
+  background: rgba(189, 147, 249, 0.1);
+  margin-right: 4px;
+}
+
+#cpu {
+  color: @solar-amber;
+}
+
+#cpu.warning {
+  color: #ffb86c;
+  background: rgba(255, 184, 108, 0.15);
+}
+
+#cpu.critical {
+  color: @alert-nova;
+  background: rgba(255, 85, 85, 0.2);
+}
+
+#memory {
+  color: @plasma-pink;
+}
+
+#wireplumber {
+  color: @cosmic-cyan;
+}
+
+#wireplumber.muted {
+  color: @star-dim;
+}
+
+#network {
+  color: #50fa7b;
+}
+
+#network.disconnected {
+  color: @alert-nova;
+}
+
+#battery {
+  color: #50fa7b;
+}
+
+#battery.charging {
+  color: @solar-amber;
+}
+
+#battery.warning:not(.charging) {
+  color: @solar-amber;
+}
+
+#battery.critical:not(.charging) {
+  color: @alert-nova;
+  animation: pulse-alert 1s infinite alternate;
+}
+
+#custom-power {
+  color: @alert-nova;
+  padding: 0 10px;
+  margin-left: 4px;
+  border-radius: 12px;
+  background: rgba(255, 85, 85, 0.1);
+  border: 1px solid rgba(255, 85, 85, 0.25);
+}
+
+#custom-power:hover {
+  color: #ffffff;
+  background: @alert-nova;
+  box-shadow: 0 0 14px rgba(255, 85, 85, 0.7);
+}
+
+
+@keyframes pulse-alert {
+  0% {
+    opacity: 0.6;
+    box-shadow: 0 0 4px rgba(255, 85, 85, 0.3);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 14px rgba(255, 85, 85, 0.8);
+  }
+}

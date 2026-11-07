@@ -1,0 +1,33 @@
+* {
+    background-image: none;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+    box-shadow: none;
+}
+
+window {
+    background-color: rgba(10, 8, 22, 0.82);
+}
+
+button {
+    color: #f8f8f2;
+    background-color: rgba(22, 18, 44, 0.65);
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgba(189, 147, 249, 0.28);
+    border-radius: 18px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 26%;
+    margin: 10px;
+    transition: all 0.25s ease-in-out;
+}
+
+button:focus,
+button:active,
+button:hover {
+    color: #0a0816;
+    background-color: #ff79c6;
+    border-color: #8be9fd;
+    box-shadow: 0 0 18px rgba(255, 121, 198, 0.65);
+}

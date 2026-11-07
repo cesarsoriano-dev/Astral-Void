@@ -1,0 +1,22 @@
+{
+  "theme": "Astral-Void",
+  "author": "Leonardo Soriano",
+  "default_wallpaper": "assets/wallpapers/astral_void_main.jpg",
+  "blur": 0,
+  "engine": "swww",
+  "swww_transition": {
+    "type": "outer",
+    "duration": 1.5,
+    "step": 90,
+    "fps": 120
+  },
+  "palette": {
+    "accent_primary": "#ff79c6",
+    "accent_secondary": "#8be9fd",
+    "accent_tertiary": "#ffb86c",
+    "accent_violet": "#bd93f9",
+    "bg_dark": "#0a0816",
+    "bg_card": "#16122c",
+    "fg_text": "#f8f8f2"
+  }
+}

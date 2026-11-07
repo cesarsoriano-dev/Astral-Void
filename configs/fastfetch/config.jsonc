@@ -1,0 +1,86 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "kitty",
+    "source": "~/.config/hyde/themes/Astral-Void/assets/icons/arch_galaxy.png",
+    "width": 26,
+    "height": 18,
+    "padding": {
+      "top": 1,
+      "left": 2,
+      "right": 3
+    }
+  },
+  "display": {
+    "separator": " 󰇄 "
+  },
+  "modules": [
+    "title",
+    {
+      "type": "custom",
+      "format": "──────────────────────────────"
+    },
+    {
+      "type": "os",
+      "key": "󰣇 OS",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "host",
+      "key": "󰌢 Host",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "kernel",
+      "key": "󰒋 Kernel",
+      "keyColor": "blue"
+    },
+    {
+      "type": "uptime",
+      "key": "󱑂 Uptime",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "packages",
+      "key": "󰏖 Packages",
+      "keyColor": "green"
+    },
+    {
+      "type": "shell",
+      "key": "󰞷 Shell",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "wm",
+      "key": "󱂬 WM",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "theme",
+      "key": "󰔎 Theme",
+      "keyColor": "blue"
+    },
+    {
+      "type": "terminal",
+      "key": "󰆍 Terminal",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "cpu",
+      "key": "󰍛 CPU",
+      "keyColor": "green"
+    },
+    {
+      "type": "gpu",
+      "key": "󰢮 GPU",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "memory",
+      "key": "󰘚 Memory",
+      "keyColor": "cyan"
+    },
+    "break",
+    "colors"
+  ]
+}

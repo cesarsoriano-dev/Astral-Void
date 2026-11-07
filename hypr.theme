@@ -1,0 +1,88 @@
+$theme        = Astral-Void
+$cursor_theme = system
+$cursor_size  = 24
+
+$c_magenta = rgb(ff79c6)
+$c_cyan = rgb(8be9fd)
+$c_amber = rgb(ffb86c)
+$c_violet = rgb(bd93f9)
+
+$c_magenta_a = rgba(ff79c6ff)
+$c_cyan_a = rgba(8be9fdff)
+$c_amber_a = rgba(ffb86cff)
+$c_violet_a = rgba(bd93f9ff)
+
+$c_void_deep = rgba(0a0816f2)
+$c_void_base = rgba(0a0816cc)
+$c_border_off = rgba(189, 147, 249, 0.18)
+$c_shadow_glow = rgba(255, 121, 198, 0.25)
+$c_shadow_void = rgba(0, 0, 0, 0.75)
+
+general {
+    gaps_in = 6
+    gaps_out = 14
+    border_size = 2
+    col.active_border = $c_magenta_a $c_violet_a $c_cyan_a $c_amber_a 45deg
+    col.inactive_border = $c_border_off
+    layout = dwindle
+    resize_on_border = true
+    hover_icon_on_border = true
+}
+
+decoration {
+    rounding = 14
+    active_opacity = 0.92
+    inactive_opacity = 0.78
+    fullscreen_opacity = 1.0
+
+    blur {
+        enabled = true
+        size = 8
+        passes = 3
+        new_optimizations = true
+        xray = false
+        ignore_opacity = true
+        noise = 0.02
+        contrast = 1.15
+        brightness = 0.92
+        vibrancy = 0.35
+        vibrancy_darkness = 0.2
+    }
+
+    shadow {
+        enabled = true
+        range = 24
+        render_power = 4
+        color = $c_shadow_glow
+        color_inactive = $c_shadow_void
+        offset = 0 6
+    }
+}
+
+animations {
+    enabled = true
+    bezier = cosmicSpring, 0.05, 0.95, 0.1, 1.08
+    bezier = deepDecel, 0.1, 1, 0.1, 1
+    bezier = borderSpin, 0.45, 0, 0.55, 1
+
+    animation = windows, 1, 4.5, cosmicSpring, popin 80%
+    animation = windowsOut, 1, 3.5, deepDecel, popin 85%
+    animation = windowsMove, 1, 4, deepDecel
+    animation = border, 1, 8, default
+    animation = borderangle, 1, 35, borderSpin, loop
+    animation = fade, 1, 3, deepDecel
+    animation = workspaces, 1, 4.5, deepDecel, slidefade 20%
+}
+
+layerrule = blur, waybar
+layerrule = ignorezero, waybar
+layerrule = blur, rofi
+layerrule = ignorezero, rofi
+layerrule = blur, notifications
+layerrule = ignorezero, notifications
+layerrule = blur, logout_dialog
+layerrule = blur, wlogout
+
+windowrulev2 = opacity 0.88 0.76, class:^(kitty)$
+windowrulev2 = opacity 0.92 0.82, class:^(Code|VSCodium)$
+windowrulev2 = float, class:^(pavucontrol|blueman-manager|nm-connection-editor)$
