@@ -1,22 +1,30 @@
 {
-  "theme": "Astral-Void",
-  "author": "Leonardo Soriano",
-  "default_wallpaper": "assets/wallpapers/astral_void_main.jpg",
-  "blur": 0,
-  "engine": "swww",
-  "swww_transition": {
-    "type": "outer",
-    "duration": 1.5,
-    "step": 90,
-    "fps": 120
-  },
-  "palette": {
-    "accent_primary": "#ff79c6",
-    "accent_secondary": "#8be9fd",
-    "accent_tertiary": "#ffb86c",
-    "accent_violet": "#bd93f9",
-    "bg_dark": "#0a0816",
-    "bg_card": "#16122c",
-    "fg_text": "#f8f8f2"
-  }
+    "theme": "Astral-Void",
+    "default": "assets/wallpapers/astral_void_main.jpg",
+    "thumbnail": "assets/astral_void_main.jpg",
+    "wallpapers": [
+        "assets/wallpapers/astral_void_main.jpg",
+        "assets/wallpapers/Black Hole Explosion.jpg",
+        "assets/wallpapers/Blue Dwarf Explosion.jpg",
+        "assets/wallpapers/Blue Stellar Energy Burst.jpg",
+        "assets/wallpapers/Burning Planet.jpg",
+        "assets/wallpapers/Collision of Galaxies.jpg",
+        "assets/wallpapers/Cosmic Planetary System.jpg",
+        "assets/wallpapers/Crystal planet.jpg",
+        "assets/wallpapers/Crystalline Storm.jpg",
+        "assets/wallpapers/Frozen Ice Planet.jpg",
+        "assets/wallpapers/Magical Planet and Nature.jpg",
+        "assets/wallpapers/Mystical Crystal Cave.jpg",
+        "assets/wallpapers/Mystical Planet of Magic.jpg",
+        "assets/wallpapers/Space Explosion Nebula.jpg",
+        "assets/wallpapers/Space Landscape.jpg",
+        "assets/wallpapers/Space storm.jpg"
+    ],
+    "transition": {
+        "type": "grow",
+        "pos": "0.85,0.92",
+        "fps": 60,
+        "duration": 1.8,
+        "bezier": "0.25,1,0.5,1"
+    }
 }

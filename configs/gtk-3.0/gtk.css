@@ -1,0 +1,136 @@
+@define-color theme_bg_color rgb(10, 8, 22);
+@define-color theme_fg_color rgb(248, 248, 242);
+@define-color theme_base_color rgb(18, 14, 38);
+@define-color theme_text_color rgb(248, 248, 242);
+@define-color theme_selected_bg_color rgb(189, 147, 249);
+@define-color theme_selected_fg_color rgb(10, 8, 22);
+@define-color insensitive_bg_color rgb(14, 11, 28);
+@define-color insensitive_fg_color rgb(98, 114, 164);
+@define-color insensitive_base_color rgb(18, 14, 38);
+@define-color theme_unfocused_bg_color rgb(10, 8, 22);
+@define-color theme_unfocused_fg_color rgb(190, 195, 215);
+@define-color theme_unfocused_base_color rgb(18, 14, 38);
+@define-color theme_unfocused_text_color rgb(248, 248, 242);
+@define-color theme_unfocused_selected_bg_color rgba(189, 147, 249, 0.65);
+@define-color theme_unfocused_selected_fg_color rgb(10, 8, 22);
+@define-color borders rgba(189, 147, 249, 0.28);
+@define-color unfocused_borders rgba(189, 147, 249, 0.16);
+@define-color warning_color rgb(255, 184, 108);
+@define-color error_color rgb(255, 85, 85);
+@define-color success_color rgb(80, 250, 123);
+
+window,
+dialog,
+messagedialog,
+.background {
+    background-color: rgba(10, 8, 22, 0.90);
+    color: rgb(248, 248, 242);
+}
+
+headerbar,
+.titlebar {
+    background: linear-gradient(180deg, rgba(18, 14, 38, 0.95) 0%, rgba(10, 8, 22, 0.95) 100%);
+    color: rgb(248, 248, 242);
+    border-bottom: 1px solid rgba(189, 147, 249, 0.28);
+    box-shadow: none;
+}
+
+.sidebar,
+.sidebar view,
+placessidebar,
+placessidebar list,
+.thunar .sidebar {
+    background-color: rgba(18, 14, 38, 0.78);
+    color: rgb(248, 248, 242);
+    border-right: 1px solid rgba(189, 147, 249, 0.22);
+}
+
+view,
+.view,
+textview text,
+iconview {
+    background-color: rgba(10, 8, 22, 0.85);
+    color: rgb(248, 248, 242);
+}
+
+selection,
+view:selected,
+.view:selected,
+iconview:selected,
+row:selected,
+placessidebar row:selected {
+    background-color: rgb(189, 147, 249);
+    color: rgb(10, 8, 22);
+    border-radius: 8px;
+}
+
+button {
+    background-color: rgba(18, 14, 38, 0.88);
+    color: rgb(248, 248, 242);
+    border: 1px solid rgba(189, 147, 249, 0.32);
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+button:hover {
+    background-color: rgba(189, 147, 249, 0.25);
+    color: rgb(139, 233, 253);
+    border-color: rgb(139, 233, 253);
+}
+
+button:active,
+button:checked {
+    background-color: rgb(189, 147, 249);
+    color: rgb(10, 8, 22);
+}
+
+entry {
+    background-color: rgba(18, 14, 38, 0.92);
+    color: rgb(248, 248, 242);
+    border: 1px solid rgba(189, 147, 249, 0.35);
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+entry:focus {
+    border-color: rgb(139, 233, 253);
+    box-shadow: 0 0 6px rgba(139, 233, 253, 0.45);
+}
+
+menu,
+.menu,
+.context-menu,
+popover,
+popover.background {
+    background-color: rgba(10, 8, 22, 0.96);
+    color: rgb(248, 248, 242);
+    border: 1px solid rgba(189, 147, 249, 0.38);
+    border-radius: 12px;
+    padding: 6px;
+}
+
+menuitem:hover,
+modelbutton:hover {
+    background-color: rgb(189, 147, 249);
+    color: rgb(10, 8, 22);
+    border-radius: 8px;
+}
+
+scrollbar slider {
+    background-color: rgba(189, 147, 249, 0.45);
+    border-radius: 9999px;
+    min-width: 6px;
+    min-height: 6px;
+}
+
+scrollbar slider:hover {
+    background-color: rgb(139, 233, 253);
+}
+
+tooltip,
+tooltip.background {
+    background-color: rgba(10, 8, 22, 0.95);
+    color: rgb(248, 248, 242);
+    border: 1px solid rgba(189, 147, 249, 0.45);
+    border-radius: 10px;
+}

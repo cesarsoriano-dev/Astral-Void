@@ -1,162 +1,128 @@
-#!/usr/bin/env bash
 set -euo pipefail
 
-if [[ $EUID -eq 0 ]]; then
-    printf "\033[1;31m[ERROR]\033[0m No ejecutes este script como superusuario (sin sudo).\n" >&2
-    exit 1
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+THEME_NAME="Astral-Void"
+AUTHOR_HANDLE="cesarsoriano-dev"
+HYDE_THEMES_DIR="${HOME}/.config/hyde/themes"
+TARGET_DIR="${HYDE_THEMES_DIR}/${THEME_NAME}"
+TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+BACKUP_DIR="${HOME}/.cache/hyde/backups/${THEME_NAME}_${TIMESTAMP}"
+
+C_RESET="\033[0m"
+C_BOLD="\033[1m"
+C_VIOLET="\033[38;2;189;147;249m"
+C_CYAN="\033[38;2;139;233;253m"
+C_MAGENTA="\033[38;2;255;121;198m"
+C_EMERALD="\033[38;2;80;250;123m"
+C_AMBER="\033[38;2;255;184;108m"
+C_STARLIGHT="\033[38;2;248;248;242m"
+C_MUTED="\033[38;2;98;114;164m"
+
+clear || true
+
+printf "\n"
+printf "${C_VIOLET}${C_BOLD}      █████╗ ███████╗████████╗██████╗  █████╗ ██╗         ██╗   ██╗ ██████╗ ██╗██████╗ ${C_RESET}\n"
+printf "${C_VIOLET}${C_BOLD}     ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██║         ██║   ██║██╔═══██╗██║██╔══██╗${C_RESET}\n"
+printf "${C_CYAN}${C_BOLD}     ███████║███████╗   ██║   ██████╔╝███████║██║         ██║   ██║██║   ██║██║██║  ██║${C_RESET}\n"
+printf "${C_CYAN}${C_BOLD}     ██╔══██║╚════██║   ██║   ██╔══██╗██╔══██║██║         ╚██╗ ██╔╝██║   ██║██║██║  ██║${C_RESET}\n"
+printf "${C_MAGENTA}${C_BOLD}     ██║  ██║███████║   ██║   ██║  ██║██║  ██║███████╗     ╚████╔╝ ╚██████╔╝██║██████╔╝${C_RESET}\n"
+printf "${C_MAGENTA}${C_BOLD}     ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝      ╚═══╝   ╚═════╝ ╚═╝╚═════╝ ${C_RESET}\n"
+printf "\n"
+printf "${C_VIOLET}   ╭───────────────────────────────────────────────────────────────────────────────────╮${C_RESET}\n"
+printf "${C_VIOLET}   │${C_RESET}  🌌 ${C_STARLIGHT}${C_BOLD}Cosmic Glassmorphism Flagship Suite for Hyprland & HyDE Project${C_RESET}               ${C_VIOLET}│${C_RESET}\n"
+printf "${C_VIOLET}   │${C_RESET}    ${C_CYAN}${C_BOLD}Lead Architect:${C_RESET} ${C_MAGENTA}@${AUTHOR_HANDLE}${C_RESET}   ${C_MUTED}│${C_RESET}   󰣇  ${C_CYAN}${C_BOLD}Target User:${C_RESET} ${C_EMERALD}${USER:-linux}${C_RESET}                  ${C_VIOLET}│${C_RESET}\n"
+printf "${C_VIOLET}   ╰───────────────────────────────────────────────────────────────────────────────────╯${C_RESET}\n\n"
+
+printf "   ${C_CYAN}${C_BOLD}[1/5]${C_RESET} 󰁯  ${C_STARLIGHT}Creando punto de restauración atómico en caché...${C_RESET}\n"
+
+mkdir -p "${HYDE_THEMES_DIR}"
+mkdir -p "${BACKUP_DIR}"
+
+for app in waybar kitty alacritty foot fastfetch rofi dunst hypr wlogout btop cava gtk-3.0 gtk-4.0 Kvantum; do
+    if [ -d "${HOME}/.config/${app}" ]; then
+        cp -rL "${HOME}/.config/${app}" "${BACKUP_DIR}/${app}" 2>/dev/null || true
+    fi
+done
+
+if [ -f "${HOME}/.config/starship.toml" ]; then
+    cp -fL "${HOME}/.config/starship.toml" "${BACKUP_DIR}/starship.toml" 2>/dev/null || true
 fi
 
-readonly THEME_NAME="Astral-Void"
-readonly REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly HYDE_THEMES_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/hyde/themes"
-readonly TARGET_THEME_DIR="${HYDE_THEMES_DIR}/${THEME_NAME}"
-readonly BACKUP_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}/hyde/theme_backups"
-readonly TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
-readonly CURRENT_BACKUP_DIR="${BACKUP_ROOT}/Astral_Void_${TIMESTAMP}"
+if [ -d "${TARGET_DIR}" ]; then
+    cp -r "${TARGET_DIR}" "${BACKUP_DIR}/previous_theme_dir" 2>/dev/null || true
+fi
 
-readonly WAYBAR_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/waybar"
-readonly KITTY_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/kitty"
+printf "         ${C_EMERALD}✔${C_RESET} ${C_MUTED}Backup seguro en:${C_RESET} ${C_AMBER}${BACKUP_DIR}${C_RESET}\n\n"
 
-log_info() {
-    printf "\033[1;36m[INFO]\033[0m %s\n" "$1"
-}
+printf "   ${C_CYAN}${C_BOLD}[2/5]${C_RESET} 󰉋  ${C_STARLIGHT}Construyendo árbol de módulos, 16 wallpapers y 9 iconos cósmicos...${C_RESET}\n"
 
-log_warn() {
-    printf "\033[1;33m[WARN]\033[0m %s\n" "$1"
-}
+mkdir -p "${TARGET_DIR}/assets/icons"
+mkdir -p "${TARGET_DIR}/assets/wallpapers"
+mkdir -p "${TARGET_DIR}/configs/waybar"
+mkdir -p "${TARGET_DIR}/configs/kitty"
+mkdir -p "${TARGET_DIR}/configs/alacritty"
+mkdir -p "${TARGET_DIR}/configs/foot"
+mkdir -p "${TARGET_DIR}/configs/fastfetch"
+mkdir -p "${TARGET_DIR}/configs/rofi"
+mkdir -p "${TARGET_DIR}/configs/dunst"
+mkdir -p "${TARGET_DIR}/configs/hypr"
+mkdir -p "${TARGET_DIR}/configs/wlogout"
+mkdir -p "${TARGET_DIR}/configs/starship"
+mkdir -p "${TARGET_DIR}/configs/btop/themes"
+mkdir -p "${TARGET_DIR}/configs/cava"
+mkdir -p "${TARGET_DIR}/configs/gtk-3.0"
+mkdir -p "${TARGET_DIR}/configs/gtk-4.0"
+mkdir -p "${TARGET_DIR}/configs/Kvantum/Astral-Void"
+mkdir -p "${TARGET_DIR}/scripts"
 
-log_error() {
-    printf "\033[1;31m[ERROR]\033[0m %s\n" "$1" >&2
-}
+if [ "${REPO_DIR}" != "${TARGET_DIR}" ]; then
+    cp -rf "${REPO_DIR}/." "${TARGET_DIR}/"
+fi
 
-check_dependencies() {
-    log_info "Verificando dependencias del ecosistema Hyprland / HyDE..."
-    local critical_deps=("hyprctl" "waybar" "kitty" "rofi" "jq")
-    local optional_deps=("pavucontrol" "blueman-manager" "nm-connection-editor" "btop" "wlogout" "brightnessctl" "wpctl" "notify-send" "swww")
-    local missing_critical=0
+printf "         ${C_EMERALD}✔${C_RESET} ${C_MUTED}Archivos sincronizados en:${C_RESET} ${C_VIOLET}${TARGET_DIR}${C_RESET}\n\n"
 
-    for cmd in "${critical_deps[@]}"; do
-        if ! command -v "$cmd" >/dev/null 2>&1; then
-            log_error "Dependencia crítica no encontrada: $cmd"
-            missing_critical=1
-        fi
-    done
+printf "   ${C_CYAN}${C_BOLD}[3/5]${C_RESET} 󰸉  ${C_STARLIGHT}Vinculando portada 'astral_void_main.jpg' al selector de temas HyDE...${C_RESET}\n"
 
-    if [[ "$missing_critical" -eq 1 ]]; then
-        log_error "Instala las dependencias críticas antes de continuar."
-        exit 1
-    fi
+if [ -d "${TARGET_DIR}/assets/wallpapers" ] && [ ! -e "${TARGET_DIR}/wallpapers" ]; then
+    ln -sf "${TARGET_DIR}/assets/wallpapers" "${TARGET_DIR}/wallpapers"
+fi
 
-    for cmd in "${optional_deps[@]}"; do
-        if ! command -v "$cmd" >/dev/null 2>&1; then
-            log_warn "Utilidad recomendada no instalada: $cmd"
-        fi
-    done
-}
+if [ -f "${TARGET_DIR}/assets/astral_void_main.jpg" ]; then
+    ln -sf "${TARGET_DIR}/assets/astral_void_main.jpg" "${TARGET_DIR}/wall.set"
+fi
 
-verify_repo_structure() {
-    log_info "Auditando integridad de archivos fuente del tema..."
-    local required_files=(
-        "${REPO_DIR}/hypr.theme"
-        "${REPO_DIR}/scripts/post_apply.sh"
-        "${REPO_DIR}/configs/kitty/kitty.conf"
-        "${REPO_DIR}/configs/waybar/config.jsonc"
-        "${REPO_DIR}/configs/waybar/style.css"
-    )
+printf "         ${C_EMERALD}✔${C_RESET} ${C_MUTED}Miniatura principal registrada para Rofi Theme Selector.${C_RESET}\n\n"
 
-    for file in "${required_files[@]}"; do
-        if [[ ! -f "$file" ]]; then
-            log_error "Archivo fuente faltante: $file"
-            exit 1
-        fi
-    done
-}
+printf "   ${C_CYAN}${C_BOLD}[4/5]${C_RESET}   ${C_STARLIGHT}Sanitizando saltos de línea (CRLF -> LF) y asignando permisos...${C_RESET}\n"
 
-backup_existing_configs() {
-    log_info "Desviando respaldos hacia ${CURRENT_BACKUP_DIR} (fuera del selector de HyDE)..."
-    mkdir -p "$CURRENT_BACKUP_DIR"
+find "${TARGET_DIR}/scripts" -type f -name "*.sh" -exec sed -i 's/\r$//' {} + 2>/dev/null || true
+find "${TARGET_DIR}/configs" -type f -exec sed -i 's/\r$//' {} + 2>/dev/null || true
+sed -i 's/\r$//' "${TARGET_DIR}/install.sh" 2>/dev/null || true
+sed -i 's/\r$//' "${TARGET_DIR}/uninstall.sh" 2>/dev/null || true
+sed -i 's/\r$//' "${TARGET_DIR}/hypr.theme" 2>/dev/null || true
+sed -i 's/\r$//' "${TARGET_DIR}/theme.dmenu" 2>/dev/null || true
+sed -i 's/\r$//' "${TARGET_DIR}/waybar.theme" 2>/dev/null || true
+sed -i 's/\r$//' "${TARGET_DIR}/wallpaper.json" 2>/dev/null || true
 
-    if [[ -d "$TARGET_THEME_DIR" ]]; then
-        cp -a "$TARGET_THEME_DIR" "${CURRENT_BACKUP_DIR}/hyde_theme_dir"
-        rm -rf "$TARGET_THEME_DIR"
-    fi
+chmod +x "${TARGET_DIR}/scripts/cycle_wallpaper.sh" 2>/dev/null || true
+chmod +x "${TARGET_DIR}/scripts/post_apply.sh" 2>/dev/null || true
+chmod +x "${TARGET_DIR}/scripts/random_logo_fetch.sh" 2>/dev/null || true
+chmod +x "${TARGET_DIR}/install.sh" 2>/dev/null || true
+chmod +x "${TARGET_DIR}/uninstall.sh" 2>/dev/null || true
 
-    # Patrón ampliado para capturar respaldos con guiones, espacios o puntos
-    shopt -s nullglob
-    local stray_backups=("${HYDE_THEMES_DIR}/Astral-Void"* "${HYDE_THEMES_DIR}/Astral Void"* "${HYDE_THEMES_DIR}/Astral_Void"*)
-    shopt -u nullglob
+printf "         ${C_EMERALD}✔${C_RESET} ${C_MUTED}Scripts optimizados y permisos de ejecución aplicados.${C_RESET}\n\n"
 
-    for stray in "${stray_backups[@]}"; do
-        if [[ -e "$stray" && "$stray" != "$TARGET_THEME_DIR" ]]; then
-            log_warn "Limpiando respaldo huérfano detectado en carpeta de temas: $(basename "$stray")"
-            mv "$stray" "${CURRENT_BACKUP_DIR}/"
-        fi
-    done
+printf "   ${C_CYAN}${C_BOLD}[5/5]${C_RESET} 🚀 ${C_STARLIGHT}Activando motor visual Astral Void en tiempo real...${C_RESET}\n"
 
-    if [[ -d "$WAYBAR_CONFIG_DIR" ]]; then
-        mkdir -p "${CURRENT_BACKUP_DIR}/waybar"
-        for item in config.jsonc style.css; do
-            if [[ -e "${WAYBAR_CONFIG_DIR}/${item}" || -L "${WAYBAR_CONFIG_DIR}/${item}" ]]; then
-                cp -aL "${WAYBAR_CONFIG_DIR}/${item}" "${CURRENT_BACKUP_DIR}/waybar/" 2>/dev/null || true
-            fi
-        done
-    fi
+if [ -f "${TARGET_DIR}/scripts/post_apply.sh" ]; then
+    bash "${TARGET_DIR}/scripts/post_apply.sh"
+fi
 
-    if [[ -d "$KITTY_CONFIG_DIR" ]]; then
-        mkdir -p "${CURRENT_BACKUP_DIR}/kitty"
-        if [[ -e "${KITTY_CONFIG_DIR}/kitty.conf" || -L "${KITTY_CONFIG_DIR}/kitty.conf" ]]; then
-            cp -aL "${KITTY_CONFIG_DIR}/kitty.conf" "${CURRENT_BACKUP_DIR}/kitty/" 2>/dev/null || true
-        fi
-    fi
-}
+printf "         ${C_EMERALD}✔${C_RESET} ${C_MUTED}Waybar, Hyprland, Terminales, Fastfetch y Dunst recargados.${C_RESET}\n\n"
 
-install_theme_files() {
-    log_info "Instalando estructura del tema en ${TARGET_THEME_DIR}..."
-    mkdir -p "${TARGET_THEME_DIR}/scripts"
-    mkdir -p "${TARGET_THEME_DIR}/configs/kitty"
-    mkdir -p "${TARGET_THEME_DIR}/configs/waybar"
-    mkdir -p "$WAYBAR_CONFIG_DIR"
-    mkdir -p "$KITTY_CONFIG_DIR"
-
-    # Archivos core
-    cp -f "${REPO_DIR}/hypr.theme" "${TARGET_THEME_DIR}/hypr.theme"
-    cp -f "${REPO_DIR}/scripts/post_apply.sh" "${TARGET_THEME_DIR}/scripts/post_apply.sh"
-    cp -f "${REPO_DIR}/configs/kitty/kitty.conf" "${TARGET_THEME_DIR}/configs/kitty/kitty.conf"
-    cp -f "${REPO_DIR}/configs/waybar/config.jsonc" "${TARGET_THEME_DIR}/configs/waybar/config.jsonc"
-    cp -f "${REPO_DIR}/configs/waybar/style.css" "${TARGET_THEME_DIR}/configs/waybar/style.css"
-
-    # Archivos de metadatos de HyDE (si existen en el repo)
-    for meta in wallpaper.json theme.dmenu waybar.theme; do
-        if [[ -f "${REPO_DIR}/${meta}" ]]; then
-            cp -f "${REPO_DIR}/${meta}" "${TARGET_THEME_DIR}/${meta}"
-        fi
-    done
-
-    # Copia completa de assets (wallpapers e iconos)
-    if [[ -d "${REPO_DIR}/assets" ]]; then
-        cp -rf "${REPO_DIR}/assets" "${TARGET_THEME_DIR}/"
-    fi
-
-    chmod 755 "${TARGET_THEME_DIR}/scripts/post_apply.sh"
-    chmod 755 "${REPO_DIR}/scripts/post_apply.sh"
-
-    log_info "Creando enlaces simbólicos hacia ~/.config/waybar y ~/.config/kitty..."
-    ln -snf "${TARGET_THEME_DIR}/configs/waybar/config.jsonc" "${WAYBAR_CONFIG_DIR}/config.jsonc"
-    ln -snf "${TARGET_THEME_DIR}/configs/waybar/style.css" "${WAYBAR_CONFIG_DIR}/style.css"
-    ln -snf "${TARGET_THEME_DIR}/configs/kitty/kitty.conf" "${KITTY_CONFIG_DIR}/kitty.conf"
-    ln -snf "${TARGET_THEME_DIR}/configs/kitty/kitty.conf" "${KITTY_CONFIG_DIR}/theme.conf"
-}
-
-main() {
-    check_dependencies
-    verify_repo_structure
-    backup_existing_configs
-    install_theme_files
-
-    log_info "Ejecutando hook de post-aplicación..."
-    bash "${TARGET_THEME_DIR}/scripts/post_apply.sh"
-
-    log_info "Instalación de '${THEME_NAME}' completada con éxito."
-}
-
-main "$@"
+printf "${C_EMERALD}   ╭───────────────────────────────────────────────────────────────────────────────────╮${C_RESET}\n"
+printf "${C_EMERALD}   │${C_RESET}  ✨ ${C_STARLIGHT}${C_BOLD}¡INSTALACIÓN DE ASTRAL VOID COMPLETADA CON ÉXITO!${C_RESET}                             ${C_EMERALD}│${C_RESET}\n"
+printf "${C_EMERALD}   │${C_RESET}  🎨 ${C_MUTED}Creado por:${C_RESET} ${C_MAGENTA}${C_BOLD}@${AUTHOR_HANDLE}${C_RESET}                                                ${C_EMERALD}│${C_RESET}\n"
+printf "${C_EMERALD}   │${C_RESET}  󰸉  ${C_MUTED}Ciclar Wallpapers e Iconos:${C_RESET} ${C_CYAN}Clic en el icono 󰸉 de tu Waybar${C_RESET}                   ${C_EMERALD}│${C_RESET}\n"
+printf "${C_EMERALD}   │${C_RESET}  󰁯  ${C_MUTED}Restaurar sistema anterior:${C_RESET} ${C_AMBER}./uninstall.sh${C_RESET}                                    ${C_EMERALD}│${C_RESET}\n"
+printf "${C_EMERALD}   ╰───────────────────────────────────────────────────────────────────────────────────╯${C_RESET}\n\n"

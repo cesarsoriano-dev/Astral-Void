@@ -1,16 +1,46 @@
-MIT License
+================================================================================
+                    A S T R A L   V O I D   —   L I C E N S E
+           Official Community Theme Ecosystem for Hyprland & HyDE
+================================================================================
 
-Copyright (c) 2026 Cesar Soriano
+COMMUNITY PREAMBLE
+---------------------------------------------
+Astral Void was crafted with passion, precision, and deep appreciation for the
+Linux desktop community, Arch Linux, CachyOS, Hyprland, and the HyDE Project.
+
+We believe that a workspace is more than just configuration files—it is the
+canvas where engineers, creators, students, and dreamers build the future.
+Every color gradient, glassmorphic capsule, and script in this repository was
+designed to give you an inspiring, legible, and rock-solid environment.
+
+You are completely free to:
+  • Use Astral Void on as many personal or professional machines as you wish.
+  • Study how the scripts, GTK/Qt rules, and compositor shaders work.
+  • Remix, adapt, and fork this theme to create your own cosmic variations.
+  • Share your setups and screenshots with the community.
+
+All we kindly ask in return is that you keep the original copyright notice intact
+when redistributing substantial portions of this work, respecting the effort
+invested in bringing this project to life.
+
+Explore the void. Make it yours.
+
+================================================================================
+                         MIT LICENSE
+================================================================================
+
+Copyright (c) 2026 Astral Void Contributors & Community Author
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+of this software, theme architecture, configuration files, scripts, and
+associated documentation files (the "Software"), to deal in the Software
+without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the
+Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice, the community preamble, and this permission notice
+shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,

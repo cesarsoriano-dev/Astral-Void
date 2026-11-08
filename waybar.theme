@@ -1,7 +1,1 @@
-@define-color bar-bg rgba(10, 8, 22, 0.62);
-@define-color bar-border rgba(189, 147, 249, 0.28);
-@define-color bar-fg #f8f8f2;
-@define-color glow-magenta #ff79c6;
-@define-color glow-cyan #8be9fd;
-@define-color glow-amber #ffb86c;
-@define-color glow-violet #bd93f9;
+$HOME/.config/hyde/themes/Astral-Void/configs/waybar/config.jsonc|$HOME/.config/hyde/themes/Astral-Void/configs/waybar/style.css

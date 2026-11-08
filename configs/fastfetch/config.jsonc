@@ -1,86 +1,92 @@
 {
-  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-  "logo": {
-    "type": "kitty",
-    "source": "~/.config/hyde/themes/Astral-Void/assets/icons/arch_galaxy.png",
-    "width": 26,
-    "height": 18,
-    "padding": {
-      "top": 1,
-      "left": 2,
-      "right": 3
-    }
-  },
-  "display": {
-    "separator": " 󰇄 "
-  },
-  "modules": [
-    "title",
-    {
-      "type": "custom",
-      "format": "──────────────────────────────"
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "source": "~/.cache/hyde/astral_void_logo.png",
+        "type": "auto",
+        "width": 28,
+        "preserveAspectRatio": true,
+        "padding": {
+            "top": 1,
+            "left": 2,
+            "right": 4
+        }
     },
-    {
-      "type": "os",
-      "key": "󰣇 OS",
-      "keyColor": "cyan"
+    "display": {
+        "separator": "  ",
+        "color": {
+            "keys": "magenta",
+            "title": "cyan",
+            "output": "white"
+        }
     },
-    {
-      "type": "host",
-      "key": "󰌢 Host",
-      "keyColor": "magenta"
-    },
-    {
-      "type": "kernel",
-      "key": "󰒋 Kernel",
-      "keyColor": "blue"
-    },
-    {
-      "type": "uptime",
-      "key": "󱑂 Uptime",
-      "keyColor": "yellow"
-    },
-    {
-      "type": "packages",
-      "key": "󰏖 Packages",
-      "keyColor": "green"
-    },
-    {
-      "type": "shell",
-      "key": "󰞷 Shell",
-      "keyColor": "cyan"
-    },
-    {
-      "type": "wm",
-      "key": "󱂬 WM",
-      "keyColor": "magenta"
-    },
-    {
-      "type": "theme",
-      "key": "󰔎 Theme",
-      "keyColor": "blue"
-    },
-    {
-      "type": "terminal",
-      "key": "󰆍 Terminal",
-      "keyColor": "yellow"
-    },
-    {
-      "type": "cpu",
-      "key": "󰍛 CPU",
-      "keyColor": "green"
-    },
-    {
-      "type": "gpu",
-      "key": "󰢮 GPU",
-      "keyColor": "magenta"
-    },
-    {
-      "type": "memory",
-      "key": "󰘚 Memory",
-      "keyColor": "cyan"
-    },
-    "break",
-    "colors"
-  ]
+    "modules": [
+        "break",
+        {
+            "type": "title",
+            "format": "{user-name-colored}@{host-name-colored}"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[38;2;189;147;249m╭──────────────────────────────────────────╮\u001b[0m"
+        },
+        {
+            "type": "os",
+            "key": "  󰣇 OS      ",
+            "keyColor": "38;2;139;233;253"
+        },
+        {
+            "type": "kernel",
+            "key": "   Kernel  ",
+            "keyColor": "38;2;189;147;249"
+        },
+        {
+            "type": "packages",
+            "key": "  󰏖 Packages",
+            "keyColor": "38;2;255;121;198"
+        },
+        {
+            "type": "shell",
+            "key": "   Shell   ",
+            "keyColor": "38;2;80;250;123"
+        },
+        {
+            "type": "wm",
+            "key": "   WM      ",
+            "keyColor": "38;2;139;233;253"
+        },
+        {
+            "type": "terminal",
+            "key": "  󰄛 Terminal",
+            "keyColor": "38;2;189;147;249"
+        },
+        {
+            "type": "cpu",
+            "key": "  󰻠 CPU     ",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "gpu",
+            "key": "  󰢮 GPU     ",
+            "keyColor": "38;2;255;121;198"
+        },
+        {
+            "type": "memory",
+            "key": "  󰍛 Memory  ",
+            "keyColor": "38;2;80;250;123"
+        },
+        {
+            "type": "uptime",
+            "key": "  󰥔 Uptime  ",
+            "keyColor": "38;2;139;233;253"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[38;2;189;147;249m╰──────────────────────────────────────────╯\u001b[0m"
+        },
+        {
+            "type": "custom",
+            "format": "    \u001b[38;2;10;8;22m\u001b[0m  \u001b[38;2;189;147;249m\u001b[0m  \u001b[38;2;139;233;253m\u001b[0m  \u001b[38;2;255;121;198m\u001b[0m  \u001b[38;2;255;85;85m\u001b[0m  \u001b[38;2;255;184;108m\u001b[0m  \u001b[38;2;80;250;123m\u001b[0m"
+        },
+        "break"
+    ]
 }

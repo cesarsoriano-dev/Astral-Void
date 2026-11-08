@@ -1,0 +1,87 @@
+[global]
+    monitor = 0
+    follow = mouse
+    width = (300, 420)
+    height = 180
+    origin = top-right
+    offset = 14x14
+    scale = 0
+    notification_limit = 5
+
+    progress_bar = true
+    progress_bar_height = 8
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 180
+    progress_bar_max_width = 380
+    progress_bar_corner_radius = 4
+
+    icon_corner_radius = 10
+    indicate_hidden = yes
+    transparency = 16
+    separator_height = 2
+    padding = 14
+    horizontal_padding = 16
+    text_icon_padding = 14
+    frame_width = 2
+    frame_color = "rgba(189, 147, 249, 0.45)"
+    gap_size = 8
+    separator_color = frame
+    sort = yes
+
+    font = JetBrainsMono Nerd Font 10
+    line_height = 3
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    ellipsize = middle
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+
+    enable_recursive_icon_lookup = true
+    icon_theme = Papirus-Dark
+    icon_position = left
+    min_icon_size = 42
+    max_icon_size = 64
+
+    sticky_history = yes
+    history_length = 25
+
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    corner_radius = 14
+    ignore_dbusclose = false
+    force_xwayland = false
+    force_xinerama = false
+
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[experimental]
+    per_monitor_dpi = false
+
+[urgency_low]
+    background = "rgba(10, 8, 22, 0.84)"
+    foreground = "rgb(248, 248, 242)"
+    frame_color = "rgba(139, 233, 253, 0.55)"
+    highlight = "rgb(139, 233, 253)"
+    timeout = 4
+
+[urgency_normal]
+    background = "rgba(10, 8, 22, 0.88)"
+    foreground = "rgb(248, 248, 242)"
+    frame_color = "rgba(189, 147, 249, 0.65)"
+    highlight = "rgb(189, 147, 249)"
+    timeout = 6
+
+[urgency_critical]
+    background = "rgba(18, 14, 38, 0.94)"
+    foreground = "rgb(248, 248, 242)"
+    frame_color = "rgb(255, 85, 85)"
+    highlight = "rgb(255, 121, 198)"
+    timeout = 0

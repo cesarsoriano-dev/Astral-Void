@@ -1,55 +1,52 @@
-$HYDE_THEME = Astral-Void
-$GTK_THEME = Decay-Green
-$ICON_THEME = Tela-circle-dracula
+$HOME = $HOME
+$GTK_THEME = Adwaita:dark
+$ICON_THEME = Papirus-Dark
+$COLOR_SCHEME = prefer-dark
 $CURSOR_THEME = Bibata-Modern-Ice
 $CURSOR_SIZE = 24
-$FONT = JetBrainsMono Nerd Font
-$FONT_SIZE = 11
-$DOCUMENT_FONT = JetBrainsMono Nerd Font
-$DOCUMENT_FONT_SIZE = 11
-$MONOSPACE_FONT = JetBrainsMono Nerd Font
-$MONOSPACE_FONT_SIZE = 11
 
-exec = gsettings set org.gnome.desktop.interface icon-theme '$ICON_THEME'
-exec = gsettings set org.gnome.desktop.interface gtk-theme '$GTK_THEME'
+$c_abyss = rgb(0a0816)
+$c_abyss_alpha = rgba(0a0816c7)
+$c_starlight = rgb(f8f8f2)
+$c_nebula_dim = rgb(6272a4)
+$c_pulsar_violet = rgb(bd93f9)
+$c_titanium_border = rgba(bd93f947)
+$c_horizon_cyan = rgb(8be9fd)
+$c_supernova_magenta = rgb(ff79c6)
+$c_supernova_red = rgb(ff5555)
+$c_stellar_amber = rgb(ffb86c)
+$c_cosmic_emerald = rgb(50fa7b)
+
+env = QT_QPA_PLATFORMTHEME,qt6ct
+env = QT_STYLE_OVERRIDE,kvantum
+env = GTK_THEME,Adwaita:dark
+
 exec = gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-exec = gsettings set org.gnome.desktop.interface cursor-theme '$CURSOR_THEME'
-exec = gsettings set org.gnome.desktop.interface cursor-size $CURSOR_SIZE
-exec = gsettings set org.gnome.desktop.interface font-name '$FONT $FONT_SIZE'
-exec = gsettings set org.gnome.desktop.interface document-font-name '$DOCUMENT_FONT $DOCUMENT_FONT_SIZE'
-exec = gsettings set org.gnome.desktop.interface monospace-font-name '$MONOSPACE_FONT $MONOSPACE_FONT_SIZE'
+exec = gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+exec = $HOME/.config/hyde/themes/Astral-Void/scripts/post_apply.sh
 
 general {
     gaps_in = 6
     gaps_out = 12
     border_size = 2
-    col.active_border = rgba(bd93f9ff) rgba(8be9fdff) rgba(ff79c6ff) rgba(ffb86cff) 45deg
-    col.inactive_border = rgba(0a0816aa) rgba(bd93f940) 45deg
+    col.active_border = $c_pulsar_violet $c_horizon_cyan $c_supernova_magenta 45deg
+    col.inactive_border = $c_titanium_border
     layout = dwindle
     resize_on_border = true
 }
 
-group {
-    col.border_active = rgba(bd93f9ff) rgba(8be9fdff) rgba(ff79c6ff) rgba(ffb86cff) 45deg
-    col.border_inactive = rgba(0a0816cc) rgba(bd93f940) 45deg
-    col.border_locked_active = rgba(ff79c6ff) rgba(ffb86cff) 45deg
-    col.border_locked_inactive = rgba(0a0816cc) rgba(ff79c640) 45deg
-
-    groupbar {
-        font_family = JetBrainsMono Nerd Font
-        font_size = 10
-        col.active = rgba(bd93f9cc)
-        col.inactive = rgba(0a0816cc)
-        col.locked_active = rgba(ff79c6cc)
-        col.locked_inactive = rgba(0a0816cc)
-    }
-}
-
 decoration {
-    rounding = 16
-    active_opacity = 0.96
-    inactive_opacity = 0.88
-    fullscreen_opacity = 1.0
+    rounding = 14
+    active_opacity = 1.0
+    inactive_opacity = 0.96
+
+    shadow {
+        enabled = true
+        range = 20
+        render_power = 3
+        color = rgba(000000a6)
+        color_inactive = rgba(00000073)
+    }
 
     blur {
         enabled = true
@@ -59,60 +56,61 @@ decoration {
         ignore_opacity = true
         xray = false
         noise = 0.015
-        contrast = 1.1
-        brightness = 0.9
-        vibrancy = 0.25
-        vibrancy_darkness = 0.5
-        popups = true
-    }
-
-    shadow {
-        enabled = true
-        range = 24
-        render_power = 3
-        color = rgba(05040add)
-        color_inactive = rgba(05040a88)
-        offset = 0 4
+        contrast = 1.05
+        brightness = 0.92
+        vibrancy = 0.22
     }
 }
 
 animations {
     enabled = true
-    bezier = cosmicSpring, 0.05, 0.95, 0.1, 1.08
-    bezier = deepDecel, 0.1, 1, 0.1, 1
-    bezier = borderSpin, 0.45, 0, 0.55, 1
-
-    animation = windows, 1, 4.5, cosmicSpring, popin 80%
-    animation = windowsOut, 1, 3.5, deepDecel, popin 85%
-    animation = windowsMove, 1, 4, deepDecel
-    animation = border, 1, 8, default
-    animation = borderangle, 1, 35, borderSpin, loop
-    animation = fade, 1, 3, deepDecel
-    animation = workspaces, 1, 4.5, deepDecel, slidefade 20%
+    bezier = astralCurve, 0.05, 0.9, 0.1, 1.05
+    bezier = linear, 0.0, 0.0, 1.0, 1.0
+    animation = windows, 1, 5, astralCurve, popin 80%
+    animation = windowsOut, 1, 5, astralCurve, popin 80%
+    animation = border, 1, 10, default
+    animation = borderangle, 1, 90, linear, loop
+    animation = fade, 1, 5, default
+    animation = workspaces, 1, 5, astralCurve, slide
 }
 
+group {
+    col.border_active = $c_pulsar_violet $c_horizon_cyan 45deg
+    col.border_inactive = $c_titanium_border
+    col.border_locked_active = $c_supernova_magenta $c_supernova_red 45deg
+    col.border_locked_inactive = $c_titanium_border
+
+    groupbar {
+        font_family = JetBrainsMono Nerd Font
+        font_size = 11
+        col.active = $c_pulsar_violet
+        col.inactive = $c_abyss
+        text_color = $c_starlight
+    }
+}
+
+windowrulev2 = opacity 0.80 0.76, class:^(kitty)$
+windowrulev2 = opacity 0.80 0.76, class:^(Alacritty)$
+windowrulev2 = opacity 0.80 0.76, class:^(foot)$
+windowrulev2 = opacity 0.86 0.80, class:^(org\.kde\.dolphin)$
+windowrulev2 = opacity 0.86 0.80, class:^(thunar)$
+windowrulev2 = opacity 0.86 0.80, class:^(org\.gnome\.Nautilus)$
+windowrulev2 = opacity 0.88 0.84, class:^(org\.pulseaudio\.pavucontrol)$
+windowrulev2 = opacity 0.88 0.84, class:^(blueman-manager)$
+windowrulev2 = opacity 0.85 0.80, class:^(rofi)$
+
+windowrulev2 = float, class:^(org\.pulseaudio\.pavucontrol)$
+windowrulev2 = float, class:^(blueman-manager)$
+windowrulev2 = float, class:^(nm-connection-editor)$
+windowrulev2 = float, title:^(Open File|Save File|Confirm|File Operation Progress)$
+
 layerrule = blur, waybar
-layerrule = ignorezero, waybar
-layerrule = ignorealpha 0.25, waybar
-
+layerrule = ignorealpha 0.35, waybar
 layerrule = blur, rofi
-layerrule = ignorezero, rofi
-layerrule = ignorealpha 0.25, rofi
-
+layerrule = ignorealpha 0.35, rofi
 layerrule = blur, notifications
-layerrule = ignorezero, notifications
-layerrule = ignorealpha 0.25, notifications
-
+layerrule = ignorealpha 0.35, notifications
+layerrule = blur, dunst
+layerrule = ignorealpha 0.35, dunst
 layerrule = blur, logout_dialog
-layerrule = ignorezero, logout_dialog
-layerrule = blur, wlogout
-layerrule = ignorezero, wlogout
-
-windowrulev2 = opacity 0.82 0.75, class:^(kitty)$
-windowrulev2 = blur, class:^(kitty)$
-windowrulev2 = opacity 0.90 0.82, class:^(org.kde.dolphin|org.gnome.Nautilus|thunar)$
-windowrulev2 = opacity 0.92 0.85, class:^(code-oss|Code|VSCodium|codium)$
-windowrulev2 = opacity 0.88 0.80, class:^(Spotify|spotify|org.pulseaudio.pavucontrol|blueman-manager|nm-applet|nm-connection-editor)$
-windowrulev2 = float, class:^(org.pulseaudio.pavucontrol|blueman-manager|nm-connection-editor|org.kde.polkit-kde-authentication-agent-1)$
-windowrulev2 = size 850 550, class:^(org.pulseaudio.pavucontrol|blueman-manager)$
-windowrulev2 = center, class:^(org.pulseaudio.pavucontrol|blueman-manager|nm-connection-editor)$
+layerrule = ignorealpha 0.35, logout_dialog

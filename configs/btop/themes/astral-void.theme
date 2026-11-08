@@ -1,0 +1,52 @@
+theme[main_bg]="10 8 22"
+theme[main_fg]="248 248 242"
+theme[title]="248 248 242"
+theme[hi_fg]="139 233 253"
+theme[selected_bg]="189 147 249"
+theme[selected_fg]="10 8 22"
+theme[inactive_fg]="98 114 164"
+theme[graph_text]="248 248 242"
+theme[meter_bg]="18 14 38"
+theme[proc_misc]="189 147 249"
+
+theme[cpu_box]="189 147 249"
+theme[mem_box]="139 233 253"
+theme[net_box]="255 121 198"
+theme[proc_box]="189 147 249"
+theme[div_line]="98 114 164"
+
+theme[temp_start]="80 250 123"
+theme[temp_mid]="255 184 108"
+theme[temp_end]="255 85 85"
+
+theme[cpu_start]="139 233 253"
+theme[cpu_mid]="189 147 249"
+theme[cpu_end]="255 121 198"
+
+theme[free_start]="80 250 123"
+theme[free_mid]="139 233 253"
+theme[free_end]="189 147 249"
+
+theme[cached_start]="139 233 253"
+theme[cached_mid]="189 147 249"
+theme[cached_end]="255 121 198"
+
+theme[available_start]="80 250 123"
+theme[available_mid]="255 184 108"
+theme[available_end]="139 233 253"
+
+theme[used_start]="189 147 249"
+theme[used_mid]="255 121 198"
+theme[used_end]="255 85 85"
+
+theme[download_start]="139 233 253"
+theme[download_mid]="189 147 249"
+theme[download_end]="80 250 123"
+
+theme[upload_start]="189 147 249"
+theme[upload_mid]="255 121 198"
+theme[upload_end]="255 184 108"
+
+theme[process_start]="139 233 253"
+theme[process_mid]="189 147 249"
+theme[process_end]="255 121 198"

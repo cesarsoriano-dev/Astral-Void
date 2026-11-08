@@ -2,20 +2,19 @@
     "layer": "top",
     "position": "top",
     "mod": "dock",
-    "height": 40,
+    "height": 38,
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
     "reload_style_on_change": true,
-    "margin-top": 6,
-    "margin-left": 10,
-    "margin-right": 10,
+    "margin-top": 8,
+    "margin-left": 12,
+    "margin-right": 12,
     "margin-bottom": 0,
 
     "modules-left": [
-        "custom/arch",
-        "hyprland/workspaces",
-        "hyprland/window"
+        "group/capsule-launcher",
+        "group/capsule-workspaces"
     ],
 
     "modules-center": [
@@ -23,147 +22,143 @@
     ],
 
     "modules-right": [
-        "tray",
-        "pulseaudio",
-        "backlight",
-        "network",
-        "bluetooth",
-        "cpu",
-        "memory",
-        "battery",
-        "custom/power"
+        "group/capsule-telemetry",
+        "group/capsule-system",
+        "group/capsule-power",
+        "tray"
     ],
+
+    "group/capsule-launcher": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/arch",
+            "custom/wallchange"
+        ]
+    },
+
+    "group/capsule-workspaces": {
+        "orientation": "horizontal",
+        "modules": [
+            "hyprland/workspaces",
+            "hyprland/window"
+        ]
+    },
+
+    "group/capsule-telemetry": {
+        "orientation": "horizontal",
+        "modules": [
+            "cpu",
+            "memory"
+        ]
+    },
+
+    "group/capsule-system": {
+        "orientation": "horizontal",
+        "modules": [
+            "pulseaudio",
+            "backlight",
+            "network",
+            "bluetooth"
+        ]
+    },
+
+    "group/capsule-power": {
+        "orientation": "horizontal",
+        "modules": [
+            "battery",
+            "custom/power"
+        ]
+    },
 
     "custom/arch": {
         "format": "󰣇",
         "tooltip": true,
-        "tooltip-format": "Astral Void • Lanzador",
-        "on-click": "pkill rofi || rofi -show drun",
-        "on-click-right": "kitty"
+        "tooltip-format": "Astral Void // Lanzador de Aplicaciones",
+        "on-click": "pkill -x rofi || rofi -show drun",
+        "on-click-right": "pkill -x rofi || rofi -show run"
+    },
+
+    "custom/wallchange": {
+        "format": "󰸉",
+        "tooltip": true,
+        "tooltip-format": "Ciclar Atmósfera Estelar\nClic Izq: Siguiente\nClic Der: Anterior\nClic Medio: Aleatorio",
+        "on-click": "$HOME/.config/hyde/themes/Astral-Void/scripts/cycle_wallpaper.sh next",
+        "on-click-right": "$HOME/.config/hyde/themes/Astral-Void/scripts/cycle_wallpaper.sh prev",
+        "on-click-middle": "$HOME/.config/hyde/themes/Astral-Void/scripts/cycle_wallpaper.sh random"
     },
 
     "hyprland/workspaces": {
         "disable-scroll": false,
         "all-outputs": true,
-        "warp-on-scroll": false,
-        "format": "{icon}",
-        "format-icons": {
-            "1": "󰲠",
-            "2": "󰲢",
-            "3": "󰲤",
-            "4": "󰲦",
-            "5": "󰲨",
-            "6": "󰲪",
-            "7": "󰲬",
-            "8": "󰲮",
-            "9": "󰲰",
-            "10": "󰿬",
-            "urgent": "󰀨",
-            "active": "󰮯",
-            "default": "󰊠"
-        },
+        "active-only": false,
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e-1",
+        "on-scroll-down": "hyprctl dispatch workspace e+1",
         "persistent-workspaces": {
             "*": 5
+        },
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10",
+            "urgent": "",
+            "default": ""
         }
     },
 
     "hyprland/window": {
-        "format": "󰣆 {title}",
-        "max-length": 32,
+        "format": "{}",
         "separate-outputs": true,
+        "max-length": 42,
         "rewrite": {
-            "^$": "🌌 Astral Void",
             "(.*) — Mozilla Firefox": "󰈹 $1",
+            "(.*) - Mozilla Firefox": "󰈹 $1",
+            "(.*) - Google Chrome": " $1",
+            "(.*) - Brave": "󰖟 $1",
             "(.*) - Visual Studio Code": "󰨞 $1",
-            "(.*) - VSCodium": "󰨞 $1",
-            ".*kitty.*": "󰄛 Terminal",
-            ".*zsh.*": "󰄛 Terminal",
-            ".*bash.*": "󰄛 Terminal"
+            "(.*) - Code - OSS": "󰨞 $1",
+            "^nvim (.*)": " $1",
+            "^vim (.*)": " $1",
+            "^kitty$": "󰄛 Kitty Terminal",
+            "^Alacritty$": " Alacritty",
+            "^foot$": " Foot Terminal",
+            "(.*) — Dolphin": " $1",
+            "(.*) - Thunar": " $1",
+            "^$": "🌌 Astral Void"
         }
     },
 
     "clock": {
-        "interval": 1,
         "format": "󰥔 {:%H:%M  󰃭 %a %d %b}",
         "format-alt": "󰥔 {:%H:%M:%S  󰃭 %Y-%m-%d}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "interval": 1,
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
-            "mode": "month",
+            "mode": "year",
             "mode-mon-col": 3,
             "weeks-pos": "right",
             "on-scroll": 1,
             "format": {
                 "months": "<span color='#bd93f9'><b>{}</b></span>",
                 "days": "<span color='#f8f8f2'><b>{}</b></span>",
-                "weeks": "<span color='#8be9fd'><b>W{}</b></span>",
-                "weekdays": "<span color='#ffb86c'><b>{}</b></span>",
+                "weeks": "<span color='#6272a4'><b>W{}</b></span>",
+                "weekdays": "<span color='#8be9fd'><b>{}</b></span>",
                 "today": "<span color='#ff79c6'><b><u>{}</u></b></span>"
             }
-        }
-    },
-
-    "tray": {
-        "icon-size": 16,
-        "spacing": 8,
-        "show-passive-items": true
-    },
-
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-bluetooth": "󰂯 {volume}%",
-        "format-bluetooth-muted": "󰂲 Muted",
-        "format-muted": "󰖁 Muted",
-        "format-icons": {
-            "headphone": "󰋋",
-            "hands-free": "󰋎",
-            "headset": "󰋎",
-            "phone": "󰏲",
-            "portable": "󰏲",
-            "car": "󰄋",
-            "default": ["󰕿", "󰖀", "󰕾"]
         },
-        "scroll-step": 5,
-        "on-click": "pavucontrol",
-        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+",
-        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-        "tooltip-format": "Audio: {desc}\nVolumen: {volume}%"
-    },
-
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "scroll-step": 5,
-        "on-scroll-up": "brightnessctl set 5%+",
-        "on-scroll-down": "brightnessctl set 5%-",
-        "tooltip-format": "Brillo de pantalla: {percent}%"
-    },
-
-    "network": {
-        "interval": 3,
-        "format-wifi": "󰤨 {essid}",
-        "format-ethernet": "󰈀 {ipaddr}",
-        "format-linked": "󰈀 {ifname}",
-        "format-disconnected": "󰤭 Offline",
-        "tooltip-format-wifi": "Red Wi-Fi: {essid} ({signalStrength}%)\nIP: {ipaddr}/{cidr}\n󰕒 {bandwidthUpBytes}  󰇚 {bandwidthDownBytes}",
-        "tooltip-format-ethernet": "Ethernet: {ifname}\nIP: {ipaddr}/{cidr}\n󰕒 {bandwidthUpBytes}  󰇚 {bandwidthDownBytes}",
-        "tooltip-format-disconnected": "Red desconectada",
-        "on-click": "nm-connection-editor",
-        "on-click-right": "kitty -e nmtui"
-    },
-
-    "bluetooth": {
-        "format": "󰂯",
-        "format-disabled": "󰂲",
-        "format-off": "󰂲",
-        "format-connected": "󰂱 {num_connections}",
-        "format-connected-battery": "󰂱 {device_battery_percentage}%",
-        "tooltip-format": "Bluetooth: {controller_alias}\nEstado: {status}",
-        "tooltip-format-connected": "Controlador: {controller_alias}\nConectados:\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "• {device_alias}",
-        "tooltip-format-enumerate-connected-battery": "• {device_alias} ({device_battery_percentage}%)",
-        "on-click": "blueman-manager",
-        "on-click-right": "rfkill toggle bluetooth"
+        "actions": {
+            "on-click-right": "mode",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
     },
 
     "cpu": {
@@ -174,7 +169,7 @@
             "warning": 75,
             "critical": 90
         },
-        "on-click": "kitty -e btop"
+        "on-click": "kitty -e btop || alacritty -e btop || foot -e btop"
     },
 
     "memory": {
@@ -185,7 +180,61 @@
             "warning": 75,
             "critical": 90
         },
-        "on-click": "kitty -e btop"
+        "on-click": "kitty -e btop || alacritty -e btop || foot -e btop"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "󰂰 {volume}%",
+        "format-bluetooth-muted": "󰂲 Muted",
+        "format-muted": "󰝟 Muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "tooltip-format": "{desc} // {volume}%"
+    },
+
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "scroll-step": 5,
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "tooltip-format": "Brillo de Pantalla: {percent}%"
+    },
+
+    "network": {
+        "interval": 3,
+        "format-wifi": "󰤨 {essid}",
+        "format-ethernet": "󰈀 LAN",
+        "format-linked": "󰈀 {ifname} (No IP)",
+        "format-disconnected": "󰤭 Offline",
+        "tooltip-format": "Interfaz: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\n󰕒 {bandwidthUpBytes}  󰇚 {bandwidthDownBytes}",
+        "tooltip-format-wifi": "Red: {essid} ({signalStrength}%)\nFrecuencia: {frequency}MHz\nIP: {ipaddr}/{cidr}\n󰕒 {bandwidthUpBytes}  󰇚 {bandwidthDownBytes}",
+        "tooltip-format-disconnected": "Red Desconectada",
+        "on-click": "kitty -e nmtui || alacritty -e nmtui || foot -e nmtui"
+    },
+
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-connected": "󰂱 {num_connections}",
+        "tooltip-format": "Bluetooth: {status}\nControlador: {controller_alias}",
+        "tooltip-format-connected": "Controlador: {controller_alias}\nConectados ({num_connections}):\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "• {device_alias} ({device_address})",
+        "tooltip-format-enumerate-connected-battery": "• {device_alias} ({device_battery_percentage}%)",
+        "on-click": "blueman-manager",
+        "on-click-right": "rfkill toggle bluetooth"
     },
 
     "battery": {
@@ -197,17 +246,23 @@
         },
         "format": "{icon} {capacity}%",
         "format-charging": "󰂄 {capacity}%",
-        "format-plugged": "󰚥 {capacity}%",
+        "format-plugged": " {capacity}%",
         "format-alt": "{icon} {time}",
         "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "tooltip-format": "Batería: {capacity}%\nEstado: {timeTo}\nConsumo: {power:0.1f}W"
+        "tooltip-format": "Batería: {capacity}%\nEstado: {timeTo}\nPotencia: {power:0.1f}W"
     },
 
     "custom/power": {
-        "format": "󰐥",
+        "format": "⏻",
         "tooltip": true,
-        "tooltip-format": "Energía (Clic: Wlogout | Clic Der: Bloquear)",
-        "on-click": "wlogout -b 5",
+        "tooltip-format": "Menú de Energía (Clic Izq: Wlogout / Clic Der: Bloquear)",
+        "on-click": "pkill -x wlogout || wlogout -b 5",
         "on-click-right": "hyprlock"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8,
+        "show-passive-items": true
     }
 }

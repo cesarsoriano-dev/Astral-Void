@@ -1,36 +1,30 @@
 {
     "label" : "lock",
     "action" : "hyprlock",
-    "text" : "Bloquear",
+    "text" : "󰌾\nBloquear\n[L]",
     "keybind" : "l"
-}
-{
-    "label" : "hibernate",
-    "action" : "systemctl hibernate",
-    "text" : "Hibernar",
-    "keybind" : "h"
 }
 {
     "label" : "logout",
     "action" : "hyprctl dispatch exit 0",
-    "text" : "Cerrar Sesión",
+    "text" : "󰍃\nSalir\n[E]",
     "keybind" : "e"
-}
-{
-    "label" : "shutdown",
-    "action" : "systemctl poweroff",
-    "text" : "Apagar",
-    "keybind" : "s"
 }
 {
     "label" : "suspend",
     "action" : "systemctl suspend",
-    "text" : "Suspender",
+    "text" : "󰤄\nSuspender\n[U]",
     "keybind" : "u"
 }
 {
     "label" : "reboot",
     "action" : "systemctl reboot",
-    "text" : "Reiniciar",
+    "text" : "󰜉\nReiniciar\n[R]",
     "keybind" : "r"
+}
+{
+    "label" : "shutdown",
+    "action" : "systemctl poweroff",
+    "text" : "󰐥\nApagar\n[S]",
+    "keybind" : "s"
 }

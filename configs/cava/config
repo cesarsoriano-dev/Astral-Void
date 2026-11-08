@@ -1,26 +1,56 @@
 [general]
+mode = normal
 framerate = 60
 autosens = 1
+overshoot = 15
+sensitivity = 100
 bars = 0
-bar_width = 3
+bar_width = 2
 bar_spacing = 1
+lower_cutoff_freq = 50
+higher_cutoff_freq = 10000
+sleep_timer = 5
 
 [input]
-method = pipewire
+method = pulse
 source = auto
 
 [output]
-method = ncurses
+method = noncurses
+orientation = bottom
+channels = stereo
+mono_option = average
+reverse = 0
+raw_target = /dev/stdout
+data_format = binary
+bit_format = 16bit
+ascii_max_range = 1000
+bar_delimiter = 59
+frame_delimiter = 10
 
 [color]
+background = default
+foreground = cyan
 gradient = 1
-gradient_count = 4
-gradient_color_1 = '#8be9fd'
-gradient_color_2 = '#bd93f9'
-gradient_color_3 = '#ff79c6'
-gradient_color_4 = '#ffb86c'
+gradient_count = 6
+gradient_color_1 = '0x120e26'
+gradient_color_2 = '0x6272a4'
+gradient_color_3 = '0xbd93f9'
+gradient_color_4 = '0x8be9fd'
+gradient_color_5 = '0xff79c6'
+gradient_color_6 = '0xff5555'
 
 [smoothing]
+integral = 77
 monstercat = 1
 waves = 0
 gravity = 100
+ignore = 0
+noise_reduction = 77
+
+[eq]
+1 = 1
+2 = 1
+3 = 1
+4 = 1
+5 = 1
