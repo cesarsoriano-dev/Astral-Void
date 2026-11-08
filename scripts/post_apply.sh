@@ -27,6 +27,14 @@ safe_deploy() {
     cp -f "${src}" "${dst}"
 }
 
+hydrate_hex() {
+    local target_file="$1"
+    if [ -f "${target_file}" ]; then
+        awk '{gsub("0x", sprintf("%c", 35)); print}' "${target_file}" > "${target_file}.tmp"
+        mv -f "${target_file}.tmp" "${target_file}"
+    fi
+}
+
 if [ -d "${WALL_DIR}" ] && [ ! -e "${THEME_DIR}/wallpapers" ]; then
     ln -sf "${WALL_DIR}" "${THEME_DIR}/wallpapers"
 fi
@@ -58,17 +66,43 @@ safe_deploy "${THEME_DIR}/configs/btop/btop.conf" "${CONFIG_DIR}/btop/btop.conf"
 safe_deploy "${THEME_DIR}/configs/btop/themes/astral-void.theme" "${CONFIG_DIR}/btop/themes/astral-void.theme"
 safe_deploy "${THEME_DIR}/configs/cava/config" "${CONFIG_DIR}/cava/config"
 safe_deploy "${THEME_DIR}/configs/gtk-3.0/gtk.css" "${CONFIG_DIR}/gtk-3.0/gtk.css"
+safe_deploy "${THEME_DIR}/configs/gtk-3.0/settings.ini" "${CONFIG_DIR}/gtk-3.0/settings.ini"
 safe_deploy "${THEME_DIR}/configs/gtk-4.0/gtk.css" "${CONFIG_DIR}/gtk-4.0/gtk.css"
+safe_deploy "${THEME_DIR}/configs/gtk-4.0/settings.ini" "${CONFIG_DIR}/gtk-4.0/settings.ini"
 safe_deploy "${THEME_DIR}/configs/Kvantum/kvantum.kvconfig" "${CONFIG_DIR}/Kvantum/kvantum.kvconfig"
 safe_deploy "${THEME_DIR}/configs/Kvantum/Astral-Void/Astral-Void.kvconfig" "${CONFIG_DIR}/Kvantum/Astral-Void/Astral-Void.kvconfig"
+safe_deploy "${THEME_DIR}/configs/qt6ct/qt6ct.conf" "${CONFIG_DIR}/qt6ct/qt6ct.conf"
+safe_deploy "${THEME_DIR}/configs/qt6ct/colors/Astral-Void.conf" "${CONFIG_DIR}/qt6ct/colors/Astral-Void.conf"
+safe_deploy "${THEME_DIR}/configs/satty/config.toml" "${CONFIG_DIR}/satty/config.toml"
+safe_deploy "${THEME_DIR}/configs/qView/qView.conf" "${CONFIG_DIR}/qView/qView.conf"
+safe_deploy "${THEME_DIR}/configs/okular/okularpartrc" "${CONFIG_DIR}/okularpartrc"
 
-if [ -f "${CONFIG_DIR}/cava/config" ]; then
-    awk '{gsub("0x", sprintf("%c", 35)); print}' "${CONFIG_DIR}/cava/config" > "${CONFIG_DIR}/cava/config.tmp"
-    mv -f "${CONFIG_DIR}/cava/config.tmp" "${CONFIG_DIR}/cava/config"
+if [ -f "${CONFIG_DIR}/qt6ct/qt6ct.conf" ]; then
+    sed -i "s|/home/\$USER|${HOME}|g" "${CONFIG_DIR}/qt6ct/qt6ct.conf" 2>/dev/null || true
+fi
+
+hydrate_hex "${CONFIG_DIR}/kitty/kitty.conf"
+hydrate_hex "${CONFIG_DIR}/cava/config"
+hydrate_hex "${CONFIG_DIR}/qt6ct/colors/Astral-Void.conf"
+
+if [ -f "${CONFIG_DIR}/kitty/theme.conf" ]; then
+    cp -f "${CONFIG_DIR}/kitty/kitty.conf" "${CONFIG_DIR}/kitty/theme.conf" 2>/dev/null || true
+fi
+
+if [ -d "${HOME}/.mozilla/firefox" ] && [ -f "${THEME_DIR}/configs/firefox/userChrome.css" ]; then
+    for profile_dir in "${HOME}/.mozilla/firefox/"*.default*; do
+        if [ -d "${profile_dir}" ]; then
+            mkdir -p "${profile_dir}/chrome"
+            cp -f "${THEME_DIR}/configs/firefox/userChrome.css" "${profile_dir}/chrome/userChrome.css"
+            if ! grep -q "toolkit.legacyUserProfileCustomizations.stylesheets" "${profile_dir}/user.js" 2>/dev/null; then
+                printf 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);\n' >> "${profile_dir}/user.js"
+            fi
+        fi
+    done
 fi
 
 if [ ! -f "${ACTIVE_LOGO}" ]; then
-    if [ -f "${ICON_DIR}/ astral_void_main.png" ]; then
+    if [ -f "${ICON_DIR}/astral_void_main.png" ]; then
         cp -f "${ICON_DIR}/astral_void_main.png" "${ACTIVE_LOGO}"
     elif [ -f "${ICON_DIR}/arch-astral.png" ]; then
         cp -f "${ICON_DIR}/arch-astral.png" "${ACTIVE_LOGO}"
@@ -82,29 +116,23 @@ fi
 
 rm -rf "${HOME}/.cache/fastfetch" 2>/dev/null || true
 
-if [ -f "${HOME}/.zshrc" ]; then
-    if ! grep -q "random_logo_fetch.sh" "${HOME}/.zshrc" 2>/dev/null; then
-        printf "\nalias fastfetch='bash \"\$HOME/.config/hyde/themes/Astral-Void/scripts/random_logo_fetch.sh\"'\n" >> "${HOME}/.zshrc"
-        printf "bash \"\$HOME/.config/hyde/themes/Astral-Void/scripts/random_logo_fetch.sh\"\n" >> "${HOME}/.zshrc"
+for rc_file in "${HOME}/.zshrc" "${HOME}/.bashrc"; do
+    if [ -f "${rc_file}" ]; then
+        sed -i '/random_logo_fetch\.sh/d' "${rc_file}" 2>/dev/null || true
+        printf "\nalias fastfetch='bash \"\$HOME/.config/hyde/themes/Astral-Void/scripts/random_logo_fetch.sh\"'\n" >> "${rc_file}"
+        printf "bash \"\$HOME/.config/hyde/themes/Astral-Void/scripts/random_logo_fetch.sh\"\n" >> "${rc_file}"
     fi
-    if command -v starship >/dev/null 2>&1 && ! grep -q "starship init zsh" "${HOME}/.zshrc" 2>/dev/null; then
-        printf "eval \"\$(starship init zsh)\"\n" >> "${HOME}/.zshrc"
-    fi
-fi
-
-if [ -f "${HOME}/.bashrc" ]; then
-    if ! grep -q "random_logo_fetch.sh" "${HOME}/.bashrc" 2>/dev/null; then
-        printf "\nalias fastfetch='bash \"\$HOME/.config/hyde/themes/Astral-Void/scripts/random_logo_fetch.sh\"'\n" >> "${HOME}/.bashrc"
-        printf "bash \"\$HOME/.config/hyde/themes/Astral-Void/scripts/random_logo_fetch.sh\"\n" >> "${HOME}/.bashrc"
-    fi
-    if command -v starship >/dev/null 2>&1 && ! grep -q "starship init bash" "${HOME}/.bashrc" 2>/dev/null; then
-        printf "eval \"\$(starship init bash)\"\n" >> "${HOME}/.bashrc"
-    fi
-fi
+done
 
 if command -v gsettings >/dev/null 2>&1; then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark' 2>/dev/null || true
     gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark' 2>/dev/null || true
+fi
+
+if command -v xfconf-query >/dev/null 2>&1; then
+    xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark" 2>/dev/null || true
+    xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark" 2>/dev/null || true
 fi
 
 if command -v pkill >/dev/null 2>&1; then
@@ -121,10 +149,11 @@ if command -v hyprctl >/dev/null 2>&1; then
     hyprctl reload >/dev/null 2>&1 || true
 fi
 
+killall -9 waybar 2>/dev/null || pkill -9 -x waybar 2>/dev/null || true
+sleep 0.3
+
 if command -v waybar >/dev/null 2>&1; then
-    pkill -x waybar >/dev/null 2>&1 || true
-    sleep 0.2
-    nohup waybar >/dev/null 2>&1 &
+    nohup waybar -c "${CONFIG_DIR}/waybar/config.jsonc" -s "${CONFIG_DIR}/waybar/style.css" >/dev/null 2>&1 &
 fi
 
 if [ -x "${THEME_DIR}/scripts/cycle_wallpaper.sh" ]; then

@@ -18,29 +18,90 @@
 @define-color warning_color rgb(255, 184, 108);
 @define-color error_color rgb(255, 85, 85);
 @define-color success_color rgb(80, 250, 123);
+@define-color content_view_bg rgb(10, 8, 22);
+@define-color wm_bg rgb(10, 8, 22);
+@define-color wm_unfocused_bg rgb(10, 8, 22);
 
 window,
 dialog,
 messagedialog,
-.background {
+.background,
+window.thunar,
+window.thunar > grid,
+window.thunar paned {
     background-color: rgba(10, 8, 22, 0.90);
     color: rgb(248, 248, 242);
 }
 
 headerbar,
-.titlebar {
-    background: linear-gradient(180deg, rgba(18, 14, 38, 0.95) 0%, rgba(10, 8, 22, 0.95) 100%);
+headerbar:backdrop,
+.titlebar,
+.titlebar:backdrop,
+menubar,
+.menubar,
+toolbar,
+.toolbar,
+.primary-toolbar,
+window.thunar toolbar,
+window.thunar menubar,
+window.thunar .top-bar,
+window.thunar .location-bar {
+    background-image: none;
+    background-color: rgba(18, 14, 38, 0.96);
     color: rgb(248, 248, 242);
     border-bottom: 1px solid rgba(189, 147, 249, 0.28);
     box-shadow: none;
+}
+
+menubar > menuitem,
+.menubar > menuitem,
+toolbar button,
+.primary-toolbar button,
+window.thunar toolbar button {
+    background-color: transparent;
+    color: rgb(248, 248, 242);
+    border-radius: 8px;
+}
+
+menubar > menuitem:hover,
+.menubar > menuitem:hover,
+toolbar button:hover,
+.primary-toolbar button:hover,
+window.thunar toolbar button:hover {
+    background-color: rgba(189, 147, 249, 0.25);
+    color: rgb(139, 233, 253);
+}
+
+notebook,
+notebook > header,
+notebook > header.top,
+window.thunar notebook > header {
+    background-color: rgba(14, 11, 28, 0.95);
+    color: rgb(248, 248, 242);
+    border-color: rgba(189, 147, 249, 0.22);
+}
+
+notebook > header tab {
+    background-color: rgba(18, 14, 38, 0.80);
+    color: rgb(98, 114, 164);
+    border-radius: 8px 8px 0 0;
+    padding: 4px 12px;
+}
+
+notebook > header tab:checked {
+    background-color: rgb(189, 147, 249);
+    color: rgb(10, 8, 22);
+    font-weight: bold;
 }
 
 .sidebar,
 .sidebar view,
 placessidebar,
 placessidebar list,
-.thunar .sidebar {
-    background-color: rgba(18, 14, 38, 0.78);
+placessidebar viewport.frame,
+window.thunar .sidebar,
+window.thunar treeview.view {
+    background-color: rgba(18, 14, 38, 0.82);
     color: rgb(248, 248, 242);
     border-right: 1px solid rgba(189, 147, 249, 0.22);
 }
@@ -48,46 +109,67 @@ placessidebar list,
 view,
 .view,
 textview text,
-iconview {
-    background-color: rgba(10, 8, 22, 0.85);
+iconview,
+exo-icon-view,
+.standard-view,
+window.thunar .standard-view,
+window.thunar exo-icon-view,
+scrolledwindow viewport.frame {
+    background-color: rgba(10, 8, 22, 0.86);
     color: rgb(248, 248, 242);
+}
+
+statusbar,
+window.thunar statusbar {
+    background-color: rgba(18, 14, 38, 0.94);
+    color: rgb(139, 233, 253);
+    border-top: 1px solid rgba(189, 147, 249, 0.22);
 }
 
 selection,
 view:selected,
 .view:selected,
 iconview:selected,
+exo-icon-view:selected,
 row:selected,
-placessidebar row:selected {
+placessidebar row:selected,
+treeview.view:selected {
     background-color: rgb(189, 147, 249);
     color: rgb(10, 8, 22);
     border-radius: 8px;
 }
 
-button {
-    background-color: rgba(18, 14, 38, 0.88);
+button,
+.path-bar button {
+    background-image: none;
+    background-color: rgba(18, 14, 38, 0.90);
     color: rgb(248, 248, 242);
     border: 1px solid rgba(189, 147, 249, 0.32);
     border-radius: 10px;
     padding: 5px 10px;
 }
 
-button:hover {
+button:hover,
+.path-bar button:hover {
     background-color: rgba(189, 147, 249, 0.25);
     color: rgb(139, 233, 253);
     border-color: rgb(139, 233, 253);
 }
 
 button:active,
-button:checked {
+button:checked,
+.path-bar button:checked {
     background-color: rgb(189, 147, 249);
     color: rgb(10, 8, 22);
 }
 
-entry {
-    background-color: rgba(18, 14, 38, 0.92);
+entry,
+window.thunar entry,
+window.thunar .location-bar entry {
+    background-image: none;
+    background-color: rgba(10, 8, 22, 0.94);
     color: rgb(248, 248, 242);
-    border: 1px solid rgba(189, 147, 249, 0.35);
+    border: 1px solid rgba(189, 147, 249, 0.38);
     border-radius: 10px;
     padding: 5px 10px;
 }
@@ -107,6 +189,12 @@ popover.background {
     border: 1px solid rgba(189, 147, 249, 0.38);
     border-radius: 12px;
     padding: 6px;
+}
+
+menuitem,
+modelbutton {
+    color: rgb(248, 248, 242);
+    padding: 5px 10px;
 }
 
 menuitem:hover,

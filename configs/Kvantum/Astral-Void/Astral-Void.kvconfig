@@ -1,5 +1,5 @@
 [%General]
-author=Astral Void Team
+author=cesarsoriano-dev
 comment=Cosmic Glassmorphism Kvantum Theme for HyDE
 translucent_windows=true
 blurring=true
@@ -22,7 +22,7 @@ layout_margin=6
 no_window_pattern=true
 opaque=vlc,totem,mpv,gwenview,krita,gimp,inkscape
 reduce_window_opacity=14
- reduce_menu_opacity=8
+reduce_menu_opacity=8
 respect_DE=true
 scrollable_menu=true
 submenu_overlap=0

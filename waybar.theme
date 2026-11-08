@@ -1,1 +1,7 @@
-$HOME/.config/hyde/themes/Astral-Void/configs/waybar/config.jsonc|$HOME/.config/hyde/themes/Astral-Void/configs/waybar/style.css
+@define-color bar-bg rgba(10, 8, 22, 0.0);
+@define-color main-bg rgba(10, 8, 22, 0.78);
+@define-color main-fg rgb(248, 248, 242);
+@define-color wb-act-bg rgb(189, 147, 249);
+@define-color wb-act-fg rgb(10, 8, 22);
+@define-color wb-hvr-bg rgb(139, 233, 253);
+@define-color wb-hvr-fg rgb(10, 8, 22);

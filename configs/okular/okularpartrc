@@ -1,0 +1,22 @@
+[Core Performance]
+MemoryLevel=Normal
+TextAntialias=Enabled
+GraphicsAntialias=Enabled
+
+[Dlg Accessibility]
+ChangeColors=true
+PaperColor=10,8,22
+RenderMode=Paper
+
+[General]
+LockSidebar=false
+ShowLeftBar=true
+ShowBottomBar=true
+ShellOpenFileInTabs=true
+SmoothScrolling=true
+
+[PageView]
+BackgroundColor=18,14,38
+UseCustomBackgroundColor=true
+ShowScrollBars=true
+ViewMode=Single

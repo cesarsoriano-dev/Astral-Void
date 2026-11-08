@@ -46,47 +46,47 @@ save_to_clipboard = true
 draw_bold_text_with_bright_colors = true
 
 [colors.primary]
-background = "#0a0816"
-foreground = "#f8f8f2"
-dim_foreground = "#6272a4"
-bright_foreground = "#ffffff"
+background = "0x0a0816"
+foreground = "0xf8f8f2"
+dim_foreground = "0x6272a4"
+bright_foreground = "0xffffff"
 
 [colors.cursor]
-text = "#0a0816"
-cursor = "#8be9fd"
+text = "0x0a0816"
+cursor = "0x8be9fd"
 
 [colors.vi_mode_cursor]
-text = "#0a0816"
-cursor = "#bd93f9"
+text = "0x0a0816"
+cursor = "0xbd93f9"
 
 [colors.search.matches]
-foreground = "#0a0816"
-background = "#ffb86c"
+foreground = "0x0a0816"
+background = "0xffb86c"
 
 [colors.search.focused_match]
-foreground = "#0a0816"
-background = "#ff79c6"
+foreground = "0x0a0816"
+background = "0xff79c6"
 
 [colors.selection]
-text = "#0a0816"
-background = "#bd93f9"
+text = "0x0a0816"
+background = "0xbd93f9"
 
 [colors.normal]
-black = "#120e26"
-red = "#ff5555"
-green = "#50fa7b"
-yellow = "#ffb86c"
-blue = "#bd93f9"
-magenta = "#ff79c6"
-cyan = "#8be9fd"
-white = "#f8f8f2"
+black = "0x120e26"
+red = "0xff5555"
+green = "0x50fa7b"
+yellow = "0xffb86c"
+blue = "0xbd93f9"
+magenta = "0xff79c6"
+cyan = "0x8be9fd"
+white = "0xf8f8f2"
 
 [colors.bright]
-black = "#6272a4"
-red = "#ff6e6e"
-green = "#69ff94"
-yellow = "#ffffa5"
-blue = "#d6acff"
-magenta = "#ff92df"
-cyan = "#a4ffff"
-white = "#ffffff"
+black = "0x6272a4"
+red = "0xff6e6e"
+green = "0x69ff94"
+yellow = "0xffffa5"
+blue = "0xd6acff"
+magenta = "0xff92df"
+cyan = "0xa4ffff"
+white = "0xffffff"

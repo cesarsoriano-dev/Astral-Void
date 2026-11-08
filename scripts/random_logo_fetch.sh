@@ -1,24 +1,92 @@
-set -euo pipefail
-
-ICON_DIR="${HOME}/.config/hyde/themes/Astral-Void/assets/icons"
-CACHE_DIR="${HOME}/.cache/hyde"
-ACTIVE_LOGO="${CACHE_DIR}/astral_void_logo.png"
-CONFIG_FILE="${HOME}/.config/fastfetch/config.jsonc"
-
-mkdir -p "${CACHE_DIR}"
-
-if [ -d "${ICON_DIR}" ]; then
-    mapfile -d '' -t ICONS < <(find "${ICON_DIR}" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.webp" -o -iname "*.jpg" \) -print0 | sort -z)
-    TOTAL=${#ICONS[@]}
-
-    if [ "${TOTAL}" -gt 0 ]; then
-        RANDOM_IDX=$(( RANDOM % TOTAL ))
-        SELECTED_ICON="${ICONS[$RANDOM_IDX]}"
-        cp -f "${SELECTED_ICON}" "${ACTIVE_LOGO}"
-        rm -rf "${HOME}/.cache/fastfetch" 2>/dev/null || true
-        fastfetch --logo "${ACTIVE_LOGO}" --logo-type auto --logo-width 28 --config "${CONFIG_FILE}"
-        exit 0
-    fi
-fi
-
-fastfetch --config "${CONFIG_FILE}"
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "source": "~/.config/hyde/themes/Astral-Void/assets/icons/arch-astral.png",
+        "type": "auto",
+        "width": 28,
+        "preserveAspectRatio": true,
+        "padding": {
+            "top": 1,
+            "left": 2,
+            "right": 4
+        }
+    },
+    "display": {
+        "separator": "  ",
+        "color": {
+            "keys": "magenta",
+            "title": "cyan",
+            "output": "white"
+        }
+    },
+    "modules": [
+        "break",
+        {
+            "type": "title",
+            "format": "{user-name-colored}@{host-name-colored}"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[38;2;189;147;249m╭──────────────────────────────────────────╮\u001b[0m"
+        },
+        {
+            "type": "os",
+            "key": "  󰣇 OS      ",
+            "keyColor": "38;2;139;233;253"
+        },
+        {
+            "type": "kernel",
+            "key": "   Kernel  ",
+            "keyColor": "38;2;189;147;249"
+        },
+        {
+            "type": "packages",
+            "key": "  󰏖 Packages",
+            "keyColor": "38;2;255;121;198"
+        },
+        {
+            "type": "shell",
+            "key": "   Shell   ",
+            "keyColor": "38;2;80;250;123"
+        },
+        {
+            "type": "wm",
+            "key": "   WM      ",
+            "keyColor": "38;2;139;233;253"
+        },
+        {
+            "type": "terminal",
+            "key": "  󰄛 Terminal",
+            "keyColor": "38;2;189;147;249"
+        },
+        {
+            "type": "cpu",
+            "key": "  󰻠 CPU     ",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "gpu",
+            "key": "  󰢮 GPU     ",
+            "keyColor": "38;2;255;121;198"
+        },
+        {
+            "type": "memory",
+            "key": "  󰍛 Memory  ",
+            "keyColor": "38;2;80;250;123"
+        },
+        {
+            "type": "uptime",
+            "key": "  󰥔 Uptime  ",
+            "keyColor": "38;2;139;233;253"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[38;2;189;147;249m╰──────────────────────────────────────────╯\u001b[0m"
+        },
+        {
+            "type": "custom",
+            "format": "    \u001b[38;2;18;14;38m\u001b[0m  \u001b[38;2;189;147;249m\u001b[0m  \u001b[38;2;139;233;253m\u001b[0m  \u001b[38;2;255;121;198m\u001b[0m  \u001b[38;2;255;85;85m\u001b[0m  \u001b[38;2;255;184;108m\u001b[0m  \u001b[38;2;80;250;123m\u001b[0m"
+        },
+        "break"
+    ]
+}

@@ -1,0 +1,72 @@
+:root {
+    --toolbar-bgcolor: rgba(18, 14, 38, 0.94) !important;
+    --toolbar-color: rgb(248, 248, 242) !important;
+    --lwt-accent-color: rgb(10, 8, 22) !important;
+    --lwt-text-color: rgb(248, 248, 242) !important;
+    --tab-selected-bgcolor: rgb(189, 147, 249) !important;
+    --tab-selected-textcolor: rgb(10, 8, 22) !important;
+    --toolbar-field-background-color: rgba(10, 8, 22, 0.92) !important;
+    --toolbar-field-color: rgb(248, 248, 242) !important;
+    --toolbar-field-border-color: rgba(189, 147, 249, 0.35) !important;
+    --toolbar-field-focus-background-color: rgb(10, 8, 22) !important;
+    --toolbar-field-focus-color: rgb(248, 248, 242) !important;
+    --toolbar-field-focus-border-color: rgb(139, 233, 253) !important;
+    --arrowpanel-background: rgb(10, 8, 22) !important;
+    --arrowpanel-color: rgb(248, 248, 242) !important;
+    --arrowpanel-border-color: rgba(189, 147, 249, 0.38) !important;
+    --sidebar-background-color: rgb(10, 8, 22) !important;
+    --sidebar-text-color: rgb(248, 248, 242) !important;
+}
+
+[id="navigator-toolbox"] {
+    background-color: rgb(10, 8, 22) !important;
+    border-bottom: 1px solid rgba(189, 147, 249, 0.28) !important;
+}
+
+[id="TabsToolbar"] {
+    background-color: rgb(10, 8, 22) !important;
+    color: rgb(248, 248, 242) !important;
+}
+
+.tab-background {
+    border-radius: 9999px !important;
+    margin-block: 3px !important;
+    background-color: rgba(18, 14, 38, 0.75) !important;
+    border: 1px solid rgba(189, 147, 249, 0.18) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-background {
+    background: linear-gradient(135deg, rgb(189, 147, 249) 0%, rgb(139, 233, 253) 100%) !important;
+    border-color: rgb(139, 233, 253) !important;
+    box-shadow: 0 0 10px rgba(139, 233, 253, 0.40) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-label {
+    color: rgb(10, 8, 22) !important;
+    font-weight: 700 !important;
+}
+
+[id="nav-bar"],
+[id="PersonalToolbar"] {
+    background-color: rgb(18, 14, 38) !important;
+    color: rgb(248, 248, 242) !important;
+    box-shadow: none !important;
+}
+
+[id="urlbar-background"] {
+    background-color: rgb(10, 8, 22) !important;
+    border: 1px solid rgba(189, 147, 249, 0.35) !important;
+    border-radius: 9999px !important;
+}
+
+[id="urlbar"][focused="true"] > [id="urlbar-background"] {
+    border-color: rgb(139, 233, 253) !important;
+    box-shadow: 0 0 8px rgba(139, 233, 253, 0.45) !important;
+}
+
+[id="sidebar-box"],
+[id="sidebar-header"] {
+    background-color: rgb(10, 8, 22) !important;
+    color: rgb(248, 248, 242) !important;
+    border-color: rgba(189, 147, 249, 0.25) !important;
+}

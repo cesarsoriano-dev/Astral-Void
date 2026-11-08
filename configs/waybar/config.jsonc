@@ -7,14 +7,15 @@
     "passthrough": false,
     "gtk-layer-shell": true,
     "reload_style_on_change": true,
-    "margin-top": 8,
-    "margin-left": 12,
-    "margin-right": 12,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
     "margin-bottom": 0,
 
     "modules-left": [
-        "group/capsule-launcher",
-        "group/capsule-workspaces"
+        "group/capsule-hyde",
+        "group/capsule-workspaces",
+        "mpris"
     ],
 
     "modules-center": [
@@ -28,11 +29,14 @@
         "tray"
     ],
 
-    "group/capsule-launcher": {
+    "group/capsule-hyde": {
         "orientation": "horizontal",
         "modules": [
             "custom/arch",
-            "custom/wallchange"
+            "custom/theme",
+            "custom/wallchange",
+            "custom/wbar",
+            "custom/cliphist"
         ]
     },
 
@@ -47,6 +51,7 @@
     "group/capsule-telemetry": {
         "orientation": "horizontal",
         "modules": [
+            "custom/updates",
             "cpu",
             "memory"
         ]
@@ -78,13 +83,39 @@
         "on-click-right": "pkill -x rofi || rofi -show run"
     },
 
+    "custom/theme": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "Selector de Temas HyDE\nClic Izq: Selector Rofi\nClic Der: Siguiente Tema",
+        "on-click": "hyde-shell themeswitch -s || themeswitch.sh -s || rofi -show drun",
+        "on-click-right": "hyde-shell themeswitch -n || themeswitch.sh -n",
+        "on-click-middle": "hyde-shell themeswitch -p || themeswitch.sh -p"
+    },
+
     "custom/wallchange": {
         "format": "󰸉",
         "tooltip": true,
-        "tooltip-format": "Ciclar Atmósfera Estelar\nClic Izq: Siguiente\nClic Der: Anterior\nClic Medio: Aleatorio",
+        "tooltip-format": "Atmósfera Estelar (Wallpapers)\nClic Izq: Siguiente\nClic Der: Anterior\nClic Medio: Galería Rofi HyDE",
         "on-click": "$HOME/.config/hyde/themes/Astral-Void/scripts/cycle_wallpaper.sh next",
         "on-click-right": "$HOME/.config/hyde/themes/Astral-Void/scripts/cycle_wallpaper.sh prev",
-        "on-click-middle": "$HOME/.config/hyde/themes/Astral-Void/scripts/cycle_wallpaper.sh random"
+        "on-click-middle": "hyde-shell wallselect || swwwallselect.sh || $HOME/.config/hyde/themes/Astral-Void/scripts/cycle_wallpaper.sh random"
+    },
+
+    "custom/wbar": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "Opciones de Waybar\nClic Izq: Cambiar Layout de Waybar\nClic Der: Recargar Waybar",
+        "on-click": "hyde-shell waybar --select || wbarconfgen.sh n",
+        "on-click-right": "hyde-shell reload waybar || wbarconfgen.sh",
+        "on-click-middle": "hyde-shell waybar --prev || wbarconfgen.sh p"
+    },
+
+    "custom/cliphist": {
+        "format": "",
+        "tooltip": true,
+        "tooltip-format": "Historial del Portapapeles\nClic Izq: Historial\nClic Der: Limpiar Historial",
+        "on-click": "hyde-shell cliphist -c || cliphist.sh c || (cliphist list | rofi -dmenu | cliphist decode | wl-copy)",
+        "on-click-right": "hyde-shell cliphist -w || cliphist.sh w || cliphist wipe"
     },
 
     "hyprland/workspaces": {
@@ -117,7 +148,7 @@
     "hyprland/window": {
         "format": "{}",
         "separate-outputs": true,
-        "max-length": 42,
+        "max-length": 36,
         "rewrite": {
             "(.*) — Mozilla Firefox": "󰈹 $1",
             "(.*) - Mozilla Firefox": "󰈹 $1",
@@ -127,13 +158,32 @@
             "(.*) - Code - OSS": "󰨞 $1",
             "^nvim (.*)": " $1",
             "^vim (.*)": " $1",
-            "^kitty$": "󰄛 Kitty Terminal",
+            "^kitty$": "󰄛 Kitty",
             "^Alacritty$": " Alacritty",
-            "^foot$": " Foot Terminal",
+            "^foot$": " Foot",
             "(.*) — Dolphin": " $1",
             "(.*) - Thunar": " $1",
             "^$": "🌌 Astral Void"
         }
+    },
+
+    "mpris": {
+        "format": "{player_icon} {dynamic}",
+        "format-paused": "{status_icon} <i>{dynamic}</i>",
+        "max-length": 30,
+        "player-icons": {
+            "default": "󰎆",
+            "spotify": "",
+            "firefox": "󰈹",
+            "mpv": ""
+        },
+        "status-icons": {
+            "paused": "󰏤"
+        },
+        "dynamic-order": ["title", "artist"],
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-click-middle": "playerctl previous"
     },
 
     "clock": {
@@ -147,11 +197,11 @@
             "weeks-pos": "right",
             "on-scroll": 1,
             "format": {
-                "months": "<span color='#bd93f9'><b>{}</b></span>",
-                "days": "<span color='#f8f8f2'><b>{}</b></span>",
-                "weeks": "<span color='#6272a4'><b>W{}</b></span>",
-                "weekdays": "<span color='#8be9fd'><b>{}</b></span>",
-                "today": "<span color='#ff79c6'><b><u>{}</u></b></span>"
+                "months": "<span color='violet'><b>{}</b></span>",
+                "days": "<span color='white'><b>{}</b></span>",
+                "weeks": "<span color='cyan'><b>W{}</b></span>",
+                "weekdays": "<span color='cyan'><b>{}</b></span>",
+                "today": "<span color='magenta'><b><u>{}</u></b></span>"
             }
         },
         "actions": {
@@ -159,6 +209,16 @@
             "on-scroll-up": "shift_up",
             "on-scroll-down": "shift_down"
         }
+    },
+
+    "custom/updates": {
+        "format": "󰮯 {}",
+        "interval": 3600,
+        "exec": "checkupdates 2>/dev/null | wc -l || echo 0",
+        "exec-if": "exit 0",
+        "on-click": "hyde-shell systemupdate up || systemupdate.sh up || kitty -e sudo pacman -Syu",
+        "tooltip": true,
+        "tooltip-format": "Actualizaciones de Paquetes Arch / CachyOS"
     },
 
     "cpu": {
@@ -216,12 +276,12 @@
         "interval": 3,
         "format-wifi": "󰤨 {essid}",
         "format-ethernet": "󰈀 LAN",
-        "format-linked": "󰈀 {ifname} (No IP)",
+        "format-linked": "󰈀 {ifname}",
         "format-disconnected": "󰤭 Offline",
         "tooltip-format": "Interfaz: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\n󰕒 {bandwidthUpBytes}  󰇚 {bandwidthDownBytes}",
         "tooltip-format-wifi": "Red: {essid} ({signalStrength}%)\nFrecuencia: {frequency}MHz\nIP: {ipaddr}/{cidr}\n󰕒 {bandwidthUpBytes}  󰇚 {bandwidthDownBytes}",
         "tooltip-format-disconnected": "Red Desconectada",
-        "on-click": "kitty -e nmtui || alacritty -e nmtui || foot -e nmtui"
+        "on-click": "nm-connection-editor || kitty -e nmtui"
     },
 
     "bluetooth": {
@@ -246,7 +306,7 @@
         },
         "format": "{icon} {capacity}%",
         "format-charging": "󰂄 {capacity}%",
-        "format-plugged": " {capacity}%",
+        "format-plugged": " {capacity}%",
         "format-alt": "{icon} {time}",
         "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "tooltip-format": "Batería: {capacity}%\nEstado: {timeTo}\nPotencia: {power:0.1f}W"
@@ -255,7 +315,7 @@
     "custom/power": {
         "format": "⏻",
         "tooltip": true,
-        "tooltip-format": "Menú de Energía (Clic Izq: Wlogout / Clic Der: Bloquear)",
+        "tooltip-format": "Menú de Energía\nClic Izq: Wlogout\nClic Der: Bloquear Sesión",
         "on-click": "pkill -x wlogout || wlogout -b 5",
         "on-click-right": "hyprlock"
     },

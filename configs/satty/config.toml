@@ -1,0 +1,27 @@
+[general]
+fullscreen = false
+early-exit = true
+corner-roundness = 12
+initial-tool = "brush"
+copy-command = "wl-copy"
+annotation-size-factor = 1.5
+save-after-copy = false
+default-hide-toolbars = false
+primary-highlighter = "block"
+disable-notifications = false
+
+[font]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[color-palette]
+palette = [
+    "rgb(189, 147, 249)",
+    "rgb(139, 233, 253)",
+    "rgb(255, 121, 198)",
+    "rgb(255, 85, 85)",
+    "rgb(255, 184, 108)",
+    "rgb(80, 250, 123)",
+    "rgb(248, 248, 242)",
+    "rgb(10, 8, 22)"
+]

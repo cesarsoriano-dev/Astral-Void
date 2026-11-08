@@ -5,7 +5,6 @@ WALL_DIR="${THEME_DIR}/assets/wallpapers"
 ICON_DIR="${THEME_DIR}/assets/icons"
 CACHE_DIR="${HOME}/.cache/hyde"
 STATE_FILE="${CACHE_DIR}/astral_void_wall.idx"
-ICON_STATE_FILE="${CACHE_DIR}/astral_void_icon.idx"
 ACTIVE_LOGO="${CACHE_DIR}/astral_void_logo.png"
 ACTION="${1:-next}"
 
@@ -15,9 +14,7 @@ if [ ! -d "${WALL_DIR}" ]; then
     exit 0
 fi
 
-mapfile -d '' -t WALLPAPERS < <(find "${WALL_DIR}" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -print0 | sort -z)
-
-TOTAL=${#WALLPAPERS[@]}
+TOTAL=$(find "${WALL_DIR}" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -print0 | awk 'BEGIN{RS="\0"} END{print NR}')
 
 if [ "${TOTAL}" -eq 0 ]; then
     exit 0
@@ -58,7 +55,13 @@ case "${ACTION}" in
 esac
 
 printf "%s\n" "${NEXT_IDX}" > "${STATE_FILE}"
-SELECTED_WALL="${WALLPAPERS[$NEXT_IDX]}"
+TARGET_LINE=$(( NEXT_IDX + 1 ))
+SELECTED_WALL=$(find "${WALL_DIR}" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -print0 | sort -z | awk -v n="${TARGET_LINE}" 'BEGIN{RS="\0"; ORS=""} NR==n {print; exit}')
+
+if [ -z "${SELECTED_WALL}" ] || [ ! -f "${SELECTED_WALL}" ]; then
+    exit 0
+fi
+
 WALL_BASENAME="$(basename "${SELECTED_WALL}")"
 WALL_STEM="${WALL_BASENAME%.*}"
 
@@ -70,11 +73,10 @@ if [ -d "${ICON_DIR}" ]; then
     if [ -f "${MATCHED_ICON}" ]; then
         SELECTED_ICON="${MATCHED_ICON}"
     else
-        mapfile -d '' -t ICONS < <(find "${ICON_DIR}" -maxdepth 1 -type f -iname "*.png" -print0 | sort -z)
-        ICON_TOTAL=${#ICONS[@]}
+        ICON_TOTAL=$(find "${ICON_DIR}" -maxdepth 1 -type f -iname "*.png" -print0 | awk 'BEGIN{RS="\0"} END{print NR}')
         if [ "${ICON_TOTAL}" -gt 0 ]; then
-            ICON_IDX=$(( NEXT_IDX % ICON_TOTAL ))
-            SELECTED_ICON="${ICONS[$ICON_IDX]}"
+            ICON_LINE=$(( (NEXT_IDX % ICON_TOTAL) + 1 ))
+            SELECTED_ICON=$(find "${ICON_DIR}" -maxdepth 1 -type f -iname "*.png" -print0 | sort -z | awk -v n="${ICON_LINE}" 'BEGIN{RS="\0"; ORS=""} NR==n {print; exit}')
         else
             SELECTED_ICON=""
         fi
